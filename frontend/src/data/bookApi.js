@@ -1,4 +1,5 @@
 import axios from 'axios'
+import api from '../api/apiClient'
 
 // ── Search Gutenberg Books ──
 export async function searchBooks(query, limit = 20) {
@@ -65,8 +66,7 @@ export async function fetchBookContent(url) {
 
     // 1️⃣ Try our own backend proxy (no CORS issues)
     try {
-        const backendBase = import.meta.env.VITE_API_URL || 'http://localhost:8000/api'
-        const { data } = await axios.get(`${backendBase}/proxy`, { params: { url } })
+        const { data } = await api.get('/proxy', { params: { url } })
         if (data?.text) return data.text
         if (typeof data === 'string') return data
     } catch (err) {
