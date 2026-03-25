@@ -94,6 +94,41 @@ body.dark .card-tag {
     overflow: hidden;
 }
 
+/* ── Mobile Responsive ── */
+@media (max-width: 768px) {
+    .card-image-wrapper {
+        height: 180px;
+        padding-top: 0; /* Override padding-top for fixed height */
+    }
+
+    .card-content {
+        padding: 1rem;
+    }
+
+    .card-content h3 {
+        font-size: 1.15rem;
+    }
+
+    .card-content p { /* Assuming .card-excerpt refers to .card-content p */
+        font-size: 0.88rem;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+    }
+
+    /* No .card-footer in original, so skipping */
+}
+
+@media (max-width: 480px) {
+    .card-image-wrapper {
+        height: 150px;
+        padding-top: 0; /* Override padding-top for fixed height */
+    }
+
+    .card-content {
+        padding: 0.85rem;
+    }
+}
+
 .card-content p {
     color: var(--text-muted);
     font-size: 0.92rem;

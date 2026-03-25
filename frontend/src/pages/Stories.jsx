@@ -5,6 +5,7 @@ import { useState, useMemo } from 'react'
 import { useFetch } from '../hooks/useFetch'
 import { fetchPostsList } from '../data/mockApi'
 import { CardSkeleton } from '../components/Skeleton'
+import './Stories.css'
 
 export default function Stories() {
     const [query, setQuery] = useState('')
@@ -24,11 +25,10 @@ export default function Stories() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="container"
-            style={{ padding: '4rem 2rem', minHeight: '80vh' }}
+            className="container stories-page"
         >
-            <header style={{ marginBottom: '4rem', textAlign: 'center' }}>
-                <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }}>Stories</h1>
+            <header className="stories-header">
+                <h1>Stories</h1>
                 <div className="section-line"></div>
                 <p style={{ color: 'var(--text-muted)', marginTop: '2rem' }}>
                     Short fiction and personal reflections.
@@ -55,11 +55,7 @@ export default function Stories() {
                 </div>
             </header>
 
-            <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
-                gap: '3rem'
-            }}>
+            <div className="stories-grid">
                 {loading ? (
                     Array.from({ length: 3 }).map((_, index) => (
                         <div key={index} style={{ height: '450px' }}>
@@ -77,7 +73,7 @@ export default function Stories() {
                                 imgUrl={story.imgUrl}
                                 linkTo={`/read/${story.id}`}
                                 readingTime={story.readingTime}
-                                delay={index * 0.15}
+                                delay={Math.min(index * 0.1, 0.6)}
                             />
                         </div>
                     ))

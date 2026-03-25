@@ -212,6 +212,18 @@
     color: var(--text-color, #333);
 }
 
+/* ── Error Feedback ── */
+.ambient-error {
+    padding: 0.5rem 0.75rem;
+    margin: 0 0.75rem 0.5rem;
+    font-size: 0.78rem;
+    color: #e63946;
+    background: rgba(230, 57, 70, 0.08);
+    border: 1px solid rgba(230, 57, 70, 0.15);
+    border-radius: 6px;
+    text-align: center;
+}
+
 /* ── Responsive ──────────────────────────────────── */
 @media (max-width: 480px) {
     .ambient-panel {
@@ -219,5 +231,22 @@
         left: 0.5rem;
         width: auto;
         top: 64px;
+    }
+
+    .ambient-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.4rem;
+    }
+
+    .ambient-btn {
+        padding: 0.5rem;
+    }
+
+    .ambient-emoji {
+        font-size: 1.1rem;
+    }
+
+    .ambient-label {
+        font-size: 0.6rem;
     }
 }

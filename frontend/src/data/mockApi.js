@@ -365,32 +365,178 @@ It is impossible to say how first the idea entered my brain; but once conceived,
 Now this is the point. You fancy me mad. Madmen know nothing. But you should have seen me. You should have seen how wisely I proceeded — with what caution — with what foresight — with what dissimulation I went to work!`
     },
 
-    // ── Percy Bysshe Shelley ──
-    'ozymandias': {
-        id: 'ozymandias',
-        title: 'Ozymandias',
-        date: '1818',
-        author: 'Percy Bysshe Shelley',
+    // ── Gurnoor Singh Jais (New Additions) ──
+    'echoes-of-silence': {
+        id: 'echoes-of-silence',
+        title: 'Echoes of Silence',
+        date: '2023',
+        author: 'E. Rivers',
+        type: 'Poem',
+        readingTime: '2 min read',
+        moods: ['melancholy', 'reflective'],
+        tags: ['solitude', 'memory'],
+        excerpt: 'In the quiet room where shadows stretch...',
+        imgUrl: 'https://images.unsplash.com/photo-1518599904199-0ca897819ddb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+        body: `In the quiet room where shadows stretch,
+And dust motes dance in faded light,
+I hear the echoes of the words you left,
+Resounding softly through the night.
+
+The books we read stand silent now,
+Their spines untouched, their pages still.
+The clock ticks on, a steady metronome,
+Measuring the void I cannot fill.
+
+I trace the outline of your absent form,
+Against the space where you used to be.
+And in this profound and heavy hush,
+Your silence speaks volumes to me.`
+    },
+
+    'the-clockmaker': {
+        id: 'the-clockmaker',
+        title: 'The Clockmaker\'s Secret',
+        date: '2024',
+        author: 'Arthur Pendelton',
+        type: 'Story',
+        readingTime: '5 min read',
+        moods: ['mysterious', 'curious'],
+        tags: ['time', 'craftsmanship'],
+        excerpt: 'Elias Thorne never simply built a clock; he trapped a piece of time itself...',
+        imgUrl: 'https://images.unsplash.com/photo-1501139083538-0139583c060f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+        body: `Elias Thorne never simply built a clock; he trapped a piece of time itself within the brass and gears. His shop, tucked away in a cobblestone alley that most maps forgot, smelled of oil, aged wood, and the metallic tang of ticking seconds.
+
+People came to Elias not just for repairs, but to buy moments. They didn't know this, of course. They just knew that the grandfather clock with the moon-phase dial seemed to make their evenings stretch just a little longer, or that the silver pocket watch made the grueling workday feel perceptibly swifter.
+
+His secret lay in the mainsprings. Elias didn't forge them in a normal fire. He forged them in the heat of memories. A spring cooled in a jar of tears held sorrowful, slow time. A spring quenched in the laughter of children yielded fast, joyous hours.
+
+But the real mastery—the forbidden craft—was tempering a spring in nothing at all. In the absolute void of a forgotten thought. These were the clocks that simply stopped time altogether, just for a breath, just long enough to let a heart heal.`
+    },
+
+    'autumn-leaves': {
+        id: 'autumn-leaves',
+        title: 'Autumn Leaves',
+        date: '2022',
+        author: 'Clara Vance',
         type: 'Poem',
         readingTime: '1 min read',
-        moods: ['reflective', 'nostalgic'],
-        tags: ['time', 'power'],
-        excerpt: 'I met a traveller from an antique land...',
-        imgUrl: 'https://images.unsplash.com/photo-1599905953047-97d8481ffec9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-        body: `I met a traveller from an antique land,
-Who said—“Two vast and trunkless legs of stone
-Stand in the desert. . . . Near them, on the sand,
-Half sunk a shattered visage lies, whose frown,
-And wrinkled lip, and sneer of cold command,
-Tell that its sculptor well those passions read
-Which yet survive, stamped on these lifeless things,
-The hand that mocked them, and the heart that fed;
-And on the pedestal, these words appear:
-My name is Ozymandias, King of Kings;
-Look on my Works, ye Mighty, and despair!
-Nothing beside remains. Round the decay
-Of that colossal Wreck, boundless and bare
-The lone and level sands stretch far away.”`
+        moods: ['peaceful', 'nostalgic'],
+        tags: ['nature', 'seasons'],
+        excerpt: 'A symphony of gold and red, descending to their earthy bed...',
+        imgUrl: 'https://images.unsplash.com/photo-1476610182048-b716b8518aae?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+        body: `A symphony of gold and red,
+Descending to their earthy bed.
+The trees exhale a trembling sigh,
+As summer bids a slow goodbye.
+
+Crisp air bites at the rosy cheek,
+While nature plays hide and seek.
+A tapestry upon the ground,
+Where quiet, fleeting peace is found.`
+    },
+
+    'the-lighthouse': {
+        id: 'the-lighthouse',
+        title: 'The Lighthouse Keeper',
+        date: '2023',
+        author: 'Samuel Black',
+        type: 'Story',
+        readingTime: '4 min read',
+        moods: ['lonely', 'hopeful'],
+        tags: ['ocean', 'duty'],
+        excerpt: 'For thirty years, Silas had been the only resident of the craggy rock known as Widow\'s Peak...',
+        imgUrl: 'https://images.unsplash.com/photo-1549558549-415fe4c37b60?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+        body: `For thirty years, Silas had been the only resident of the craggy rock known as Widow's Peak. The lighthouse was his home, his master, and his sole companion. He knew its groans in the winter gales, its brass fittings that needed constant polishing to stave off the sea salt, and the rhythm of its rotating beam better than he knew the beating of his own heart.
+
+He rarely received letters. The supply boat came once a month, dropping off canned goods and taking away his empty solitude, only to replace it with fresh silence. But tonight was different.
+
+A tempest was raging, the worst he'd seen since '98. The waves were towering, crashing against the base of the tower with earth-shattering force. Then, he saw it. A flare, burning a defiant crimson against the pitch-black sky.
+
+Silas didn't hesitate. He grabbed his heavy coat, the thick ropes, and stepped out into the howling wind. It wasn't about the job anymore; it was about the unspoken promise every keeper makes to the sea. He would bring them home.`
+    },
+
+    'city-lights': {
+        id: 'city-lights',
+        title: 'Neon Lullaby',
+        date: '2024',
+        author: 'J.D. Sterling',
+        type: 'Poem',
+        readingTime: '1 min read',
+        moods: ['energetic', 'urban'],
+        tags: ['city', 'night'],
+        excerpt: 'Concrete canyons pulse with electric veins...',
+        imgUrl: 'https://images.unsplash.com/photo-1514565131-fce0801e5785?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+        body: `Concrete canyons pulse with electric veins,
+Washing the sidewalks in synthetic rains.
+Neon signs hum a jagged tune,
+Beneath the gaze of a smog-smudged moon.
+
+A thousand faces pass in blur,
+A frantic, endless, vivid stir.
+Yet in this crowd, I walk apart,
+Guided by the rhythm of a restless heart.`
+    },
+
+    'forgotten-library': {
+        id: 'forgotten-library',
+        title: 'The Dust Atlas',
+        date: '2023',
+        author: 'Elena Rostova',
+        type: 'Story',
+        readingTime: '6 min read',
+        moods: ['mysterious', 'wonder'],
+        tags: ['books', 'magic'],
+        excerpt: 'The library didn\'t exist on any modern map. You had to find it by getting lost...',
+        imgUrl: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+        body: `The library didn't exist on any modern map. You had to find it by getting lost, truly and utterly lost, in the winding backstreets of the old quarter. When the fog rolled in thick from the river, and the cobblestones slicked with damp, you might just stumble upon the brass-handled door.
+
+Inside, it smelled of dry paper and forgotten conversations. Millions of books, categorized not by author or subject, but by the emotion they evoked. There was a section for 'Shattered Expectations,' another for 'Quiet Tuesday Afternoons,' and one marked simply 'Longing.'
+
+The librarian, a woman who seemed woven from gray wool and cobwebs, never spoke. She merely offered a small, silver compass to each visitor. It didn't point North; it pointed toward the book your soul needed most at that exact moment.
+
+When I took the compass, the needle spun wildly before settling on a dark, narrow aisle. It led me to a book bound in deep blue velvet. The title was blank. When I opened it, the pages were unwritten, waiting for the story I had been too afraid to live.`
+    },
+
+    'morning-mist': {
+        id: 'morning-mist',
+        title: 'Dawn\'s Veil',
+        date: '2022',
+        author: 'Liam O\'Connor',
+        type: 'Poem',
+        readingTime: '1 min read',
+        moods: ['peaceful', 'ethereal'],
+        tags: ['morning', 'nature'],
+        excerpt: 'A silver blanket hugs the sleeping land...',
+        imgUrl: 'https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+        body: `A silver blanket hugs the sleeping land,
+Fashioned by a cool and unseen hand.
+The world is hushed, the edges blurred and soft,
+As gentle breezes carry dreams aloft.
+
+The sun awakes, a soft and timid glow,
+Melting the mist, revealing life below.
+A brand new day, untarnished and unseen,
+Washed in the dew, peaceful and serene.`
+    },
+
+    'the-painter': {
+        id: 'the-painter',
+        title: 'Colors of Memory',
+        date: '2024',
+        author: 'Isabella Rossi',
+        type: 'Story',
+        readingTime: '4 min read',
+        moods: ['nostalgic', 'creative'],
+        tags: ['art', 'memory'],
+        excerpt: 'She didn\'t paint what she saw; she painted what she remembered feeling...',
+        imgUrl: 'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+        body: `She didn't paint what she saw; she painted what she remembered feeling. To anyone else, the canvas was a chaotic swirl of cerulean, burnt sienna, and splashes of violent gold. But to her, it was the summer of 1999—the salt in the air, the heat of the sand, and the sudden, sharp grief of a goodbye she hadn't anticipated.
+
+Her studio was a mess of dried palettes and empty coffee cups. She worked feverishly, trying to capture the exact hue of nostalgia before it faded. The problem with memory was that it degraded over time, losing saturation, becoming sepia-toned. Paint was her way of fighting back.
+
+One evening, an old man walked into her gallery. He stared at a smaller, quieter piece—a study in muted greys and soft violet. He stood there for an hour, tears welling in his eyes. He didn't ask her what it meant. He just whispered, 'I thought I was the only one who remembered that rainstorm.'
+
+And in that moment, she realized her brush wasn't just capturing her own memories; it was speaking to the unspoken pages of everyone else's.`
     }
 };
 

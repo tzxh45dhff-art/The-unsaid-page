@@ -234,15 +234,80 @@
     line-height: 1.7;
 }
 
+@media (max-width: 768px) {
+    .hero {
+        min-height: 65vh;
+        padding: 3rem 1rem;
+    }
+
+    .hero-title {
+        font-size: clamp(2rem, 8vw, 3.5rem);
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+        max-width: 90%;
+    }
+
+    .glow-orb {
+        width: 200px;
+        height: 200px;
+        display: none;
+    }
+
+    .bento-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+        padding: 0 0.5rem;
+    }
+
+    .bento-grid > * {
+        grid-column: span 1 !important;
+    }
+}
+
 @media (max-width: 600px) {
     .hero-stats {
         flex-direction: column;
         align-items: center;
+        gap: 0.75rem;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        width: 100%;
+        gap: 0.75rem;
+    }
+
+    .hero-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .cta-section {
+        padding: 2rem 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        min-height: 55vh;
+        padding: 2rem 0.75rem;
+    }
+
+    .hero-title {
+        font-size: clamp(1.6rem, 7vw, 2.5rem);
     }
 }
 
 .daily-ritual {
     padding: 1rem 2rem 3rem;
+}
+
+@media (max-width: 768px) {
+    .daily-ritual {
+        padding: 1rem 1rem 2rem;
+    }
 }
 
 .ritual-card {

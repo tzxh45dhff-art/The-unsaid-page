@@ -1,0 +1,47 @@
+/* ─── Poems Page ─── */
+.poems-page {
+    padding: 4rem 2rem;
+    min-height: 80vh;
+}
+
+.poems-header {
+    margin-bottom: 4rem;
+    text-align: center;
+}
+
+.poems-header h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 1rem;
+}
+
+.poems-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+@media (max-width: 768px) {
+    .poems-page {
+        padding: 2.5rem 1rem;
+    }
+
+    .poems-header {
+        margin-bottom: 2.5rem;
+    }
+
+    .poems-grid {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .poems-page {
+        padding: 2rem 0.75rem;
+    }
+
+    .poems-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}

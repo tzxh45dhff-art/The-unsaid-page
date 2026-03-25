@@ -5,6 +5,7 @@ import { useMemo, useState } from 'react'
 import { useFetch } from '../hooks/useFetch'
 import { fetchPostsList } from '../data/mockApi'
 import { CardSkeleton } from '../components/Skeleton'
+import './Poems.css'
 
 export default function Poems() {
     const [query, setQuery] = useState('')
@@ -21,11 +22,10 @@ export default function Poems() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="container"
-            style={{ padding: '4rem 2rem', minHeight: '80vh' }}
+            className="container poems-page"
         >
-            <header style={{ marginBottom: '4rem', textAlign: 'center' }}>
-                <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }}>Poems</h1>
+            <header className="poems-header">
+                <h1>Poems</h1>
                 <div className="section-line"></div>
                 <p style={{ color: 'var(--text-muted)', marginTop: '2rem' }}>
                     Verses written in the margins of life.
@@ -45,11 +45,7 @@ export default function Poems() {
                 </div>
             </header>
 
-            <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-                gap: '2rem'
-            }}>
+            <div className="poems-grid">
                 {loading ? (
                     Array.from({ length: 3 }).map((_, index) => (
                         <div key={index} style={{ height: '400px' }}>
@@ -67,7 +63,7 @@ export default function Poems() {
                                 imgUrl={poem.imgUrl}
                                 linkTo={`/read/${poem.id}`}
                                 readingTime={poem.readingTime}
-                                delay={index * 0.1}
+                                delay={Math.min(index * 0.1, 0.6)}
                             />
                         </div>
                     ))
