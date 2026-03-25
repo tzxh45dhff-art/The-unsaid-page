@@ -1,0 +1,269 @@
+/* ─── Hero Section ─── */
+.hero-section {
+    position: relative;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    text-align: center;
+    padding: 6rem 1rem;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.25;
+}
+
+.glow-1 {
+    width: 45vw;
+    height: 45vw;
+    background: var(--accent-color);
+    top: -8vw;
+    left: -8vw;
+    animation: float 20s ease-in-out infinite alternate;
+}
+
+.glow-2 {
+    width: 50vw;
+    height: 50vw;
+    background: var(--warm-lavender);
+    bottom: -15vw;
+    right: -15vw;
+    animation: float 25s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes float {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+    50% {
+        transform: translate(4%, 8%) scale(1.08);
+    }
+    100% {
+        transform: translate(-3%, -4%) scale(0.95);
+    }
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-title {
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: var(--text-main);
+    -webkit-text-fill-color: unset;
+    background: none;
+}
+
+.hero-subtitle {
+    font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+    color: var(--text-muted);
+    max-width: 500px;
+    margin: 0 auto 3rem auto;
+    font-weight: 400;
+    line-height: 1.7;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* ─── Featured Section ─── */
+.featured-section {
+    padding: 6rem 2rem;
+}
+
+.section-header {
+    margin-bottom: 3.5rem;
+    text-align: center;
+}
+
+.section-header h2 {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+    color: var(--text-main);
+}
+
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem;
+    grid-auto-rows: minmax(min-content, max-content);
+}
+
+.bento-item {
+    display: flex;
+}
+
+.main-feature {
+    grid-column: span 8;
+    grid-row: span 2;
+}
+
+.main-feature .card-image-wrapper {
+    padding-top: 45%;
+}
+
+.side-feature {
+    grid-column: span 4;
+    grid-row: span 1;
+}
+
+@media (max-width: 992px) {
+    .bento-grid {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .main-feature,
+    .side-feature {
+        grid-column: span 12;
+    }
+
+    .main-feature .card-image-wrapper {
+        padding-top: 60%;
+    }
+}
+
+/* ─── Third Glow Orb ─── */
+.glow-3 {
+    width: 35vw;
+    height: 35vw;
+    background: var(--warm-gold);
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: float 18s ease-in-out 3s infinite alternate;
+    opacity: 0.15;
+}
+
+/* ─── Hero Eyebrow ─── */
+.hero-eyebrow {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--accent-color);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+/* ─── Hero Stats ─── */
+.hero-stats {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 3.5rem;
+}
+
+.stat-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    padding: 0.6rem 1.2rem;
+    border-radius: 30px;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    box-shadow: var(--glass-shadow);
+}
+
+.stat-number {
+    color: var(--accent-color);
+    font-size: 1rem;
+}
+
+.stat-label {
+    font-weight: 500;
+}
+
+/* ─── CTA Section ─── */
+.cta-section {
+    padding: 6rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(201, 149, 107, 0.06), rgba(167, 139, 175, 0.06));
+    z-index: -1;
+}
+
+.cta-content {
+    max-width: 600px;
+}
+
+.cta-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.cta-content p {
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+@media (max-width: 600px) {
+    .hero-stats {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.daily-ritual {
+    padding: 1rem 2rem 3rem;
+}
+
+.ritual-card {
+    padding: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.ritual-label {
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    color: var(--accent-color);
+    margin-bottom: 0.75rem;
+}
+
+.ritual-footer {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}

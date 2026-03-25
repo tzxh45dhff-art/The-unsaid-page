@@ -1,0 +1,12 @@
+.void-pulse {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--accent-color), transparent 70%);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 10;
+}

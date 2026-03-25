@@ -1,0 +1,93 @@
+/* ─── Auth Pages — Warm Glassmorphism ─── */
+
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 75vh;
+    padding: 2rem 1rem;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 500px;
+    padding: 3rem;
+    border-radius: var(--radius-lg);
+}
+
+.auth-title {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text-main);
+}
+
+.auth-subtitle {
+    margin-top: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.auth-form {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.auth-btn {
+    margin-top: 0.8rem;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    border-radius: var(--radius-sm);
+}
+
+.auth-error {
+    margin-top: 1rem;
+    padding: 0.8rem 1rem;
+    font-size: 0.88rem;
+    color: var(--warm-rose);
+    font-weight: 600;
+    background: rgba(201, 127, 127, 0.1);
+    border: 1px solid rgba(201, 127, 127, 0.2);
+    border-radius: var(--radius-sm);
+}
+
+.auth-footer-text {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 0.92rem;
+    color: var(--text-muted);
+}
+
+.auth-link {
+    color: var(--accent-color);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(201, 149, 107, 0.3);
+    transition: all 0.3s;
+}
+
+.auth-link:hover {
+    border-bottom-color: var(--accent-color);
+}
+
+/* Two-column form rows on auth pages */
+.auth-form .form-group-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+@media (max-width: 600px) {
+    .auth-card {
+        padding: 2rem 1.5rem;
+    }
+    .auth-form .form-group-row {
+        grid-template-columns: 1fr;
+    }
+}

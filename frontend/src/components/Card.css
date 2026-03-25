@@ -1,0 +1,151 @@
+/* ─── Glassmorphism Card ─── */
+.article-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.card-image-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 58%;
+    overflow: hidden;
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+.card-image-wrapper img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.article-card:hover .card-image-wrapper img {
+    transform: scale(1.06);
+}
+
+.card-tag {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: rgba(255, 252, 247, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: var(--accent-color);
+    padding: 0.3rem 0.85rem;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+body.dark .card-tag {
+    background: rgba(35, 30, 25, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.reading-time-badge {
+    background: linear-gradient(135deg, var(--warm-gold), var(--accent-color)) !important;
+    color: #fff !important;
+    border: none !important;
+}
+
+.text-only-tag {
+    position: static;
+    display: inline-block;
+    background: rgba(201, 149, 107, 0.12);
+    backdrop-filter: none;
+    border: 1px solid rgba(201, 149, 107, 0.25);
+    padding: 0.2rem 0.7rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.card-content h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.35rem;
+    line-height: 1.3;
+    color: var(--text-main);
+}
+
+.card-author-name {
+    font-size: 0.8rem;
+    color: var(--accent-color);
+    font-style: italic;
+    margin-bottom: 0.6rem !important;
+    opacity: 0.85;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card-content p {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    margin-bottom: 1.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.7;
+}
+
+.card-ai-summary {
+    color: var(--accent-color) !important;
+    font-size: 0.84rem !important;
+    font-style: italic;
+    line-height: 1.5 !important;
+    display: flex !important;
+    align-items: flex-start;
+    gap: 0.4rem;
+    opacity: 0.9;
+    -webkit-line-clamp: unset !important;
+    line-clamp: unset !important;
+    margin-bottom: 1rem !important;
+}
+
+.card-ai-summary .ai-icon {
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+    opacity: 0.7;
+}
+
+.read-more {
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--accent-color);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    transition: gap 0.3s ease;
+}
+
+.read-more:hover {
+    gap: 0.8rem;
+}
+
+.read-more svg {
+    transition: transform 0.3s ease;
+}
+
+.read-more:hover svg {
+    transform: translateX(3px);
+}

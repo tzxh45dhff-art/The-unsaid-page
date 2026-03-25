@@ -1,0 +1,47 @@
+/* ─── Glass Skeleton ─── */
+.brutal-skeleton {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.brutal-skeleton-read {
+    padding: 0 2rem;
+}
+
+.brutal-skeleton-line {
+    height: 1.2rem;
+    background: linear-gradient(90deg, rgba(201, 149, 107, 0.1) 25%, rgba(201, 149, 107, 0.2) 50%, rgba(201, 149, 107, 0.1) 75%);
+    background-size: 200% 100%;
+    margin-bottom: 1rem;
+    width: 100%;
+    border-radius: 8px;
+    animation: glass-shimmer 2s infinite ease-in-out;
+}
+
+.brutal-skeleton-img {
+    height: 200px;
+    background: linear-gradient(90deg, rgba(201, 149, 107, 0.08) 25%, rgba(201, 149, 107, 0.16) 50%, rgba(201, 149, 107, 0.08) 75%);
+    background-size: 200% 100%;
+    margin-bottom: 2rem;
+    width: 100%;
+    border-radius: var(--radius-sm);
+    animation: glass-shimmer 2s infinite ease-in-out;
+}
+
+.brutal-skeleton-line.short {
+    width: 60%;
+}
+
+.brutal-skeleton-line.title {
+    height: 2.2rem;
+    width: 80%;
+    margin-bottom: 2rem;
+}
+
+@keyframes glass-shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}

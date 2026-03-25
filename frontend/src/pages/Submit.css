@@ -1,0 +1,376 @@
+/* ─── Submit Page — Warm Glassmorphism ─── */
+.submit-container {
+    padding: 4rem 1rem;
+    max-width: 800px;
+    min-height: 80vh;
+}
+
+.submit-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.submit-header h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    color: var(--text-main);
+}
+
+.submit-header p {
+    color: var(--text-muted);
+    margin-top: 1.5rem;
+}
+
+.submit-form {
+    padding: 2.5rem;
+    border-radius: var(--radius-lg);
+}
+
+.form-group-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+@media (max-width: 600px) {
+    .form-group-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+.content-preview-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+@media (max-width: 800px) {
+    .content-preview-split {
+        grid-template-columns: 1fr;
+    }
+}
+
+.preview-content {
+    height: 300px;
+    overflow-y: auto;
+    padding: 1.5rem;
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: var(--radius-sm);
+    line-height: 1.7;
+}
+
+body.dark .preview-content {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.preview-content p {
+    margin-bottom: 1rem;
+}
+
+.preview-content h1, .preview-content h2, .preview-content h3 {
+    margin-bottom: 0.5rem;
+}
+
+.error-msg {
+    color: var(--warm-rose);
+    font-size: 0.82rem;
+    margin-top: 0.5rem;
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.required {
+    color: var(--warm-rose);
+}
+
+/* ─── Glass Input ─── */
+.brutal-input {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(201, 149, 107, 0.2);
+    color: var(--text-main);
+    padding: 0.9rem 1.1rem;
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    width: 100%;
+    box-shadow: none;
+}
+
+.brutal-input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+    transform: none;
+}
+
+body.dark .brutal-input {
+    background: rgba(40, 35, 28, 0.5);
+    color: var(--text-main);
+    border-color: rgba(212, 167, 106, 0.15);
+    box-shadow: none;
+}
+
+body.dark .brutal-input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+body.sepia .brutal-input {
+    background: rgba(241, 224, 194, 0.5);
+    color: var(--text-main);
+    border-color: rgba(179, 89, 0, 0.15);
+    box-shadow: none;
+}
+
+body.sepia .brutal-input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+/* ─── Radio Buttons ─── */
+.radio-group {
+    display: flex;
+    gap: 2rem;
+    margin-top: 0.5rem;
+}
+
+.radio-label {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    color: var(--text-main);
+    font-size: 0.9rem;
+}
+
+.radio-label input {
+    display: none;
+}
+
+.radio-custom {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(201, 149, 107, 0.35);
+    border-radius: 50%;
+    margin-right: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.radio-label input:checked+.radio-custom {
+    border-color: var(--accent-color);
+}
+
+.radio-label input:checked+.radio-custom::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: var(--accent-color);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--accent-glow);
+}
+
+.submit-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 1rem;
+    font-size: 0.95rem;
+    margin-top: 1rem;
+    border-radius: var(--radius-sm);
+}
+
+.success-message {
+    padding: 4rem 2rem;
+    text-align: center;
+    border-radius: var(--radius-lg);
+}
+
+.success-message h2 {
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+    font-size: 2.5rem;
+}
+
+.mt-4 {
+    margin-top: 1.5rem;
+}
+
+/* ── Focus / Zen Toggle ──────────────────────────── */
+.zen-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.5rem;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: rgba(0, 0, 0, 0.04);
+    border: 1px solid var(--glass-border, rgba(0,0,0,0.06));
+    border-radius: var(--radius-sm, 8px);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+.zen-toggle:hover {
+    color: var(--accent-color);
+    background: rgba(0, 0, 0, 0.07);
+}
+
+/* ── Zen Overlay ─────────────────────────────────── */
+.zen-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    background: rgba(15, 12, 8, 0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.zen-glow {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(212, 167, 106, 0.08) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: zen-pulse 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes zen-pulse {
+    0%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.15); }
+}
+
+.zen-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-sm, 8px);
+    color: rgba(255, 255, 255, 0.5);
+    padding: 0.4rem 0.75rem;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.78rem;
+    transition: all 0.2s;
+}
+.zen-close:hover {
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.12);
+}
+.zen-close span {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.zen-content {
+    position: relative;
+    width: min(90vw, 700px);
+    z-index: 1;
+}
+
+.zen-textarea {
+    width: 100%;
+    min-height: 50vh;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: rgba(255, 255, 255, 0.85);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    line-height: 2;
+    resize: none;
+    caret-color: var(--warm-gold, #d4a76a);
+}
+
+.zen-textarea::placeholder {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.zen-counter {
+    text-align: right;
+    margin-top: 1rem;
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 0.8rem;
+    font-family: 'Inter', sans-serif;
+}
+
+/* ── Writing Prompts ────────────────────────────── */
+.writing-prompts-container {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.prompt-trigger {
+    font-size: 0.88rem;
+}
+
+.prompt-card {
+    margin-top: 1rem;
+    padding: 2rem;
+    text-align: center;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}
+
+.prompt-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    line-height: 1.7;
+    font-style: italic;
+    color: var(--text-main);
+    margin-bottom: 1.25rem;
+}
+
+.prompt-next {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--accent-color);
+    background: rgba(201, 149, 107, 0.08);
+    border: 1px solid rgba(201, 149, 107, 0.2);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.prompt-next:hover {
+    background: rgba(201, 149, 107, 0.15);
+    transform: scale(1.05);
+}

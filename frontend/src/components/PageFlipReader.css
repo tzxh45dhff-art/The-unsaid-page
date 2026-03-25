@@ -1,0 +1,99 @@
+/* ─── Page Flip Reader ─── */
+.page-flip-container {
+    width: 100%;
+    max-width: 780px;
+    margin: 0 auto;
+    min-height: 400px;
+}
+
+.page-flip-stage {
+    position: relative;
+    min-height: 400px;
+}
+
+.page-flip-page {
+    min-height: 380px;
+    padding: 2.5rem 2rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    line-height: 1.85;
+    color: var(--text-main);
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    position: relative;
+}
+
+.page-flip-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 100%;
+    background: linear-gradient(to left, rgba(0, 0, 0, 0.03), transparent);
+    pointer-events: none;
+}
+
+.page-flip-page::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent, var(--accent-color), transparent);
+    opacity: 0.15;
+}
+
+.page-flip-page p {
+    margin-bottom: 0.6rem;
+}
+
+.page-spacer {
+    height: 1.2rem;
+}
+
+.page-flip-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    padding: 1rem;
+}
+
+.flip-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: var(--glass-border);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--text-main);
+    box-shadow: var(--glass-shadow);
+}
+
+.flip-btn:hover:not(:disabled) {
+    background: var(--accent-color);
+    color: #fff;
+    transform: scale(1.1);
+}
+
+.flip-btn:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+
+.page-indicator {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+}

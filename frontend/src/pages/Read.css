@@ -1,0 +1,430 @@
+/* ─── Read Page — Warm Glassmorphism ─── */
+.read-container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    min-height: 80vh;
+}
+
+.read-header {
+    margin-bottom: 4rem;
+    text-align: center;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 3rem;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: var(--glass-border);
+    transition: all 0.3s ease;
+}
+
+.back-link:hover {
+    color: var(--accent-color);
+    transform: translateX(-4px);
+}
+
+.article-meta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.meta-tag {
+    color: var(--accent-color);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    border: 1px solid rgba(201, 149, 107, 0.3);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    background: rgba(201, 149, 107, 0.08);
+}
+
+.meta-date {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+.article-title {
+    font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: var(--text-main);
+}
+
+.article-author {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.article-body {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    color: var(--text-main);
+}
+
+.article-body p {
+    margin-bottom: 1.8rem;
+}
+
+/* ── Typography Popover ────────────────────────── */
+.typo-popover {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    width: 260px;
+    background: var(--glass-bg, rgba(255, 255, 255, 0.7));
+    backdrop-filter: var(--glass-blur, blur(18px));
+    -webkit-backdrop-filter: var(--glass-blur, blur(18px));
+    border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.25));
+    border-radius: var(--radius-md, 12px);
+    box-shadow: var(--glass-shadow, 0 8px 32px rgba(0, 0, 0, 0.1));
+    padding: 1rem;
+    z-index: 100;
+}
+
+.typo-section {
+    margin-bottom: 0.85rem;
+}
+.typo-section:last-child {
+    margin-bottom: 0;
+}
+
+.typo-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted, #888);
+    margin-bottom: 0.4rem;
+    display: block;
+}
+
+.typo-font-btns {
+    display: flex;
+    gap: 0.35rem;
+}
+
+.typo-font-btn {
+    flex: 1;
+    padding: 0.4rem 0.5rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    border: 1px solid var(--glass-border, rgba(0, 0, 0, 0.08));
+    border-radius: var(--radius-sm, 8px);
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--text-color, #333);
+    font-family: inherit;
+}
+
+.typo-font-btn:hover {
+    background: rgba(255, 255, 255, 0.55);
+}
+
+.typo-font-btn.active {
+    background: linear-gradient(135deg, var(--warm-gold, #d4a76a), var(--accent-color, #c9956b));
+    color: #fff;
+    border-color: transparent;
+}
+
+.typo-slider {
+    width: 100%;
+    height: 4px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    outline: none;
+    margin-top: 0.3rem;
+}
+
+.typo-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--warm-gold, #d4a76a);
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(201, 149, 107, 0.4);
+}
+
+.typo-slider::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--warm-gold, #d4a76a);
+    cursor: pointer;
+    border: none;
+}
+
+/* ── Highlight Hint ─── */
+.highlight-hint {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    opacity: 0.6;
+    margin-top: 0.75rem;
+    font-style: italic;
+}
+
+/* ── Read Mode Toggle ─── */
+.back-link.active {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    background: rgba(201, 149, 107, 0.1);
+}
+
+/* ── Heatmap / Highlightable Text ──────────────── */
+.highlightable-text {
+    margin-top: 1rem;
+}
+
+.hl-line {
+    cursor: pointer;
+    padding: 0.25rem 0.6rem;
+    margin-bottom: 0.1rem;
+    border-radius: 4px;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.hl-line:hover {
+    background: rgba(201, 149, 107, 0.06);
+}
+
+.hl-line.hl-warm {
+    background: rgba(212, 167, 106, calc(0.06 * var(--heat-opacity, 0)));
+    box-shadow: inset 0 0 calc(16px * var(--heat-opacity, 0)) rgba(212, 167, 106, calc(0.1 * var(--heat-opacity, 0)));
+}
+
+.hl-line.hl-user {
+    background: rgba(201, 149, 107, 0.12);
+    border-left: 2px solid var(--accent-color);
+}
+
+body.dark .hl-line.hl-warm {
+    background: rgba(212, 167, 106, calc(0.08 * var(--heat-opacity, 0)));
+    box-shadow: inset 0 0 calc(20px * var(--heat-opacity, 0)) rgba(212, 167, 106, calc(0.08 * var(--heat-opacity, 0)));
+}
+
+.hl-line-spacer {
+    height: 1.4rem;
+}
+
+/* ── Texture Grid in Popover ── */
+.texture-grid {
+    flex-direction: column !important;
+    gap: 0.35rem !important;
+}
+
+.texture-grid .typo-font-btn {
+    font-size: 0.72rem;
+    padding: 0.35rem 0.6rem;
+    text-align: left;
+    justify-content: flex-start;
+}
+
+/* ── Realistic Page Styles ──────────────────────── */
+
+/* White Book Page — clean, crisp, like a real novel page */
+.texture-white-book {
+    background: linear-gradient(
+        180deg,
+        #fefcf9 0%,
+        #f9f6f1 40%,
+        #faf8f4 100%
+    );
+    border-radius: var(--radius-md);
+    padding: 2.5rem 2rem;
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.02);
+    color: #2a2520 !important;
+}
+
+.texture-white-book .hl-line {
+    color: #2a2520;
+}
+
+body.dark .texture-white-book {
+    background: linear-gradient(180deg, #f5f2ed 0%, #ede8e0 100%);
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.04);
+}
+
+/* Coffee Burnt — warm, stained paper with ring marks */
+.texture-coffee-burnt {
+    background: linear-gradient(
+        160deg,
+        #f0e0c8 0%,
+        #e8d4b4 30%,
+        #ddc8a4 60%,
+        #e5d5b8 100%
+    );
+    border-radius: var(--radius-md);
+    padding: 2.5rem 2rem;
+    color: #3d2e1e !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.texture-coffee-burnt .hl-line {
+    color: #3d2e1e;
+}
+
+.texture-coffee-burnt::before {
+    content: '';
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    top: 2rem;
+    right: 2rem;
+    background: radial-gradient(circle, rgba(160, 120, 60, 0.12) 0%, rgba(160, 120, 60, 0.04) 50%, transparent 70%);
+    pointer-events: none;
+}
+
+.texture-coffee-burnt::after {
+    content: '';
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    bottom: 4rem;
+    left: 3rem;
+    background: radial-gradient(circle, rgba(140, 100, 40, 0.08) 0%, transparent 65%);
+    pointer-events: none;
+}
+
+/* Handmade Paper — fibrous, rough texture with uneven edges */
+.texture-handmade {
+    background: linear-gradient(
+        180deg,
+        #f2ead8 0%,
+        #ece2cc 50%,
+        #f0e6d2 100%
+    );
+    border-radius: var(--radius-md);
+    padding: 2.5rem 2rem;
+    color: #4a3c2a !important;
+    position: relative;
+}
+
+.texture-handmade .hl-line {
+    color: #4a3c2a;
+}
+
+.texture-handmade::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 3px,
+            rgba(180, 150, 100, 0.02) 3px,
+            rgba(180, 150, 100, 0.02) 4px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 5px,
+            rgba(160, 130, 80, 0.015) 5px,
+            rgba(160, 130, 80, 0.015) 6px
+        );
+    pointer-events: none;
+    border-radius: var(--radius-md);
+}
+
+/* Aged Manuscript — yellowed, crinkled old document */
+.texture-aged-manuscript {
+    background: linear-gradient(
+        150deg,
+        #e8d8b4 0%,
+        #dcc8a0 25%,
+        #d4bc90 50%,
+        #dcc8a4 75%,
+        #e0ceac 100%
+    );
+    border-radius: var(--radius-md);
+    padding: 2.5rem 2rem;
+    color: #352818 !important;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 0 50px rgba(100, 70, 30, 0.08);
+}
+
+.texture-aged-manuscript .hl-line {
+    color: #352818;
+}
+
+.texture-aged-manuscript::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 26px,
+        rgba(120, 80, 30, 0.04) 26px,
+        rgba(120, 80, 30, 0.04) 27px
+    );
+    pointer-events: none;
+    border-radius: var(--radius-md);
+}
+
+/* Linen Textured — fabric-like subtle cross-hatch */
+.texture-linen {
+    background: linear-gradient(
+        180deg,
+        #f5f0e8 0%,
+        #ede6db 50%,
+        #f2ece2 100%
+    );
+    border-radius: var(--radius-md);
+    padding: 2.5rem 2rem;
+    color: #3a3228 !important;
+    position: relative;
+}
+
+.texture-linen .hl-line {
+    color: #3a3228;
+}
+
+.texture-linen::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 0, 0, 0.008) 2px,
+            rgba(0, 0, 0, 0.008) 3px
+        ),
+        repeating-linear-gradient(
+            -45deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 0, 0, 0.008) 2px,
+            rgba(0, 0, 0, 0.008) 3px
+        );
+    pointer-events: none;
+    border-radius: var(--radius-md);
+}
