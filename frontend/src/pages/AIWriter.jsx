@@ -20,7 +20,7 @@ export default function AIWriter() {
     const [errorMsg, setErrorMsg] = useState(null)
     const [collections, setCollections] = useState([])
     const [selectedCollection, setSelectedCollection] = useState('')
-    
+
     const { isAuthenticated } = useUser()
     const navigate = useNavigate()
 
@@ -43,13 +43,28 @@ export default function AIWriter() {
         setResult(null)
         setSubmitted(false)
         setErrorMsg(null)
-        
+
         try {
-            const systemPrompt = `You are a creative, deeply emotional writer for a platform called 'The Unsaid Page'. 
-Write a beautifully structured ${submissionType} based on the user's prompt.
-If it's a poem, use rich imagery, metaphors, and rhythm. If it's a story, be evocative, atmospheric, and focus on the unsaid emotions.
-Keep the output concise (no more than 3-4 stanzas or paragraphs).
-Respond ONLY with a JSON object containing two keys: "title" (a fitting, poetic title) and "content" (the full text body). Do not include any formatting wrapping the JSON.`
+            const systemPrompts = {
+                poem: `You are a deeply emotional poet writing for 'The Unsaid Page' — a platform for raw, unspoken feelings.
+Write a beautifully structured poem based on the user's prompt.
+Use rich imagery, metaphors, and rhythm. Favor brevity and resonance over length — 2 to 3 stanzas maximum.
+Every line should carry weight. Leave things unsaid that the reader can feel.
+Respond ONLY with a JSON object with two keys: "title" (a poetic, evocative title) and "content" (the full poem text). No markdown formatting in the JSON.`,
+
+                story: `You are a masterful literary fiction writer for 'The Unsaid Page' — a platform for immersive, emotional storytelling.
+Write a rich, atmospheric short story based on the user's prompt.
+The story should have a clear arc: a vivid opening that pulls the reader in, a developing middle full of tension or longing, and a resonant ending.
+Aim for 5 to 7 substantial paragraphs. Focus on unsaid emotions, sensory detail, and character interiority.
+Respond ONLY with a JSON object with two keys: "title" (a compelling, literary title) and "content" (the full story text). No markdown formatting in the JSON.`,
+
+                reflection: `You are a contemplative essayist writing for 'The Unsaid Page'.
+Write a short reflective piece based on the user's prompt — thoughtful, personal, and honest.
+Aim for 3 to 4 paragraphs that feel like an intimate journal entry or meditation.
+Respond ONLY with a JSON object with two keys: "title" and "content". No markdown formatting in the JSON.`,
+            }
+
+            const systemPrompt = systemPrompts[submissionType] || systemPrompts.poem
 
             const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
                 method: 'POST',
@@ -58,7 +73,7 @@ Respond ONLY with a JSON object containing two keys: "title" (a fitting, poetic 
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    model: 'llama-3.3-70b-versatile', 
+                    model: 'llama-3.3-70b-versatile',
                     messages: [
                         { role: 'system', content: systemPrompt },
                         { role: 'user', content: prompt }
@@ -89,7 +104,7 @@ Respond ONLY with a JSON object containing two keys: "title" (a fitting, poetic 
             } catch (e) {
                 throw new Error('The Void spoke in riddles. Could not parse response. Please try again.')
             }
-            
+
             setResult({
                 title: parsed.title,
                 content: parsed.content,
@@ -114,7 +129,7 @@ Respond ONLY with a JSON object containing two keys: "title" (a fitting, poetic 
                 tags: ['ai'],
                 anonymous: true
             }
-            
+
             if (isAuthenticated) {
                 const newPost = await createPost(finalPost)
                 if (selectedCollection && newPost.id) {
@@ -123,7 +138,7 @@ Respond ONLY with a JSON object containing two keys: "title" (a fitting, poetic 
             } else {
                 await mockSubmitPost(finalPost)
             }
-            
+
             setVoidTriggered(true)
         } catch (err) {
             console.error('Failed to save AI piece:', err)
@@ -154,124 +169,124 @@ Respond ONLY with a JSON object containing two keys: "title" (a fitting, poetic 
 
             {!submitted ? (
                 <>
-                <VoidAnimation trigger={voidTriggered} onComplete={handleVoidComplete}>
-                    <div className="brutal-card">
-                        <form onSubmit={handleGenerate}>
-                            <div className="form-group" style={{ marginBottom: '1rem' }}>
-                                <label>What are we writing today?</label>
-                                <div className="radio-group" style={{ marginTop: '0.8rem' }}>
-                                    <label className="radio-label">
-                                        <input
-                                            type="radio"
-                                            value="poem"
-                                            checked={submissionType === 'poem'}
-                                            onChange={() => setSubmissionType('poem')}
-                                        />
-                                        <span className="radio-custom"></span>
-                                        A Poem
-                                    </label>
-                                    <label className="radio-label">
-                                        <input
-                                            type="radio"
-                                            value="story"
-                                            checked={submissionType === 'story'}
-                                            onChange={() => setSubmissionType('story')}
-                                        />
-                                        <span className="radio-custom"></span>
-                                        A Story
-                                    </label>
+                    <VoidAnimation trigger={voidTriggered} onComplete={handleVoidComplete}>
+                        <div className="brutal-card">
+                            <form onSubmit={handleGenerate}>
+                                <div className="form-group" style={{ marginBottom: '1rem' }}>
+                                    <label>What are we writing today?</label>
+                                    <div className="radio-group" style={{ marginTop: '0.8rem' }}>
+                                        <label className="radio-label">
+                                            <input
+                                                type="radio"
+                                                value="poem"
+                                                checked={submissionType === 'poem'}
+                                                onChange={() => setSubmissionType('poem')}
+                                            />
+                                            <span className="radio-custom"></span>
+                                            A Poem
+                                        </label>
+                                        <label className="radio-label">
+                                            <input
+                                                type="radio"
+                                                value="story"
+                                                checked={submissionType === 'story'}
+                                                onChange={() => setSubmissionType('story')}
+                                            />
+                                            <span className="radio-custom"></span>
+                                            A Story
+                                        </label>
+                                    </div>
                                 </div>
-                            </div>
-                            
-                            <div className="form-group">
-                                <label htmlFor="prompt">Prompt</label>
-                                <textarea
-                                    id="prompt"
-                                    value={prompt}
-                                    onChange={(e) => setPrompt(e.target.value)}
-                                    className="brutal-input"
-                                    placeholder="e.g. A melancholic poem about the moon, or a hopeful story about finding a lost key..."
-                                    rows="4"
-                                    required
-                                />
-                            </div>
 
-                            <button
-                                type="submit"
-                                className="btn btn-primary"
-                                disabled={generating || !prompt.trim()}
-                                style={{ width: '100%', marginTop: '1rem', background: 'var(--accent-color)', color: 'var(--bg-color)' }}
-                            >
-                                {generating ? 'Consulting the Void...' : 'Generate Magic'}
-                            </button>
-                        </form>
-                        {errorMsg && (
-                            <div style={{ marginTop: '1rem', color: 'var(--accent-color)', fontWeight: 'bold' }}>
-                                {errorMsg}
-                            </div>
-                        )}
-                    </div>
+                                <div className="form-group">
+                                    <label htmlFor="prompt">Prompt</label>
+                                    <textarea
+                                        id="prompt"
+                                        value={prompt}
+                                        onChange={(e) => setPrompt(e.target.value)}
+                                        className="brutal-input"
+                                        placeholder="e.g. A melancholic poem about the moon, or a hopeful story about finding a lost key..."
+                                        rows="4"
+                                        required
+                                    />
+                                </div>
 
-                    <AnimatePresence>
-                        {generating && (
-                            <motion.div
-                                initial={{ opacity: 0, height: 0 }}
-                                animate={{ opacity: 1, height: 'auto' }}
-                                exit={{ opacity: 0, height: 0 }}
-                                style={{ overflow: 'hidden', marginTop: '2rem', textAlign: 'center' }}
-                            >
-                                <div className="typing-indicator" style={{ display: 'inline-block' }}>
-                                    <span></span><span></span><span></span>
+                                <button
+                                    type="submit"
+                                    className="btn btn-primary"
+                                    disabled={generating || !prompt.trim()}
+                                    style={{ width: '100%', marginTop: '1rem', background: 'var(--accent-color)', color: 'var(--bg-color)' }}
+                                >
+                                    {generating ? 'Consulting the Void...' : 'Generate Magic'}
+                                </button>
+                            </form>
+                            {errorMsg && (
+                                <div style={{ marginTop: '1rem', color: 'var(--accent-color)', fontWeight: 'bold' }}>
+                                    {errorMsg}
                                 </div>
-                                <p style={{ color: 'var(--accent-color)', fontWeight: 600, marginTop: '1rem' }}>
-                                    Weaving words from the silent ether...
-                                </p>
-                            </motion.div>
-                        )}
+                            )}
+                        </div>
 
-                        {result && !generating && (
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                className="brutal-card"
-                                style={{ marginTop: '2rem', borderColor: 'var(--text-color)' }}
-                            >
-                                <h3 style={{ marginBottom: '1rem', fontStyle: 'italic', fontSize: '1.5rem' }}>{result.title}</h3>
-                                <div style={{ 
-                                    whiteSpace: 'pre-wrap', 
-                                    lineHeight: 1.8, 
-                                    fontFamily: 'var(--font-mono)',
-                                    marginBottom: '2rem',
-                                    color: 'var(--text-muted)'
-                                }}>
-                                    {result.content}
-                                </div>
-                                
-                                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
-                                    <button onClick={handleSave} className="btn btn-primary">
-                                        Save to My Works
-                                    </button>
-                                    {isAuthenticated && collections.length > 0 && (
-                                        <select 
-                                            value={selectedCollection}
-                                            onChange={(e) => setSelectedCollection(e.target.value)}
-                                            className="brutal-input"
-                                            style={{ appearance: 'auto', padding: '0.5rem', width: 'auto', flex: 1, minWidth: '150px' }}
-                                        >
-                                            <option value="">(Optional: Add to Collection)</option>
-                                            {collections.map(c => (
-                                                <option key={c.id} value={c.id}>{c.name}</option>
-                                            ))}
-                                        </select>
-                                    )}
-                                    <button onClick={() => setResult(null)} className="btn">
-                                        Discard
-                                    </button>
-                                </div>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-                </VoidAnimation>
+                        <AnimatePresence>
+                            {generating && (
+                                <motion.div
+                                    initial={{ opacity: 0, height: 0 }}
+                                    animate={{ opacity: 1, height: 'auto' }}
+                                    exit={{ opacity: 0, height: 0 }}
+                                    style={{ overflow: 'hidden', marginTop: '2rem', textAlign: 'center' }}
+                                >
+                                    <div className="typing-indicator" style={{ display: 'inline-block' }}>
+                                        <span></span><span></span><span></span>
+                                    </div>
+                                    <p style={{ color: 'var(--accent-color)', fontWeight: 600, marginTop: '1rem' }}>
+                                        Weaving words from the silent ether...
+                                    </p>
+                                </motion.div>
+                            )}
+
+                            {result && !generating && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    className="brutal-card"
+                                    style={{ marginTop: '2rem', borderColor: 'var(--text-color)' }}
+                                >
+                                    <h3 style={{ marginBottom: '1rem', fontStyle: 'italic', fontSize: '1.5rem' }}>{result.title}</h3>
+                                    <div style={{
+                                        whiteSpace: 'pre-wrap',
+                                        lineHeight: 1.8,
+                                        fontFamily: 'var(--font-mono)',
+                                        marginBottom: '2rem',
+                                        color: 'var(--text-muted)'
+                                    }}>
+                                        {result.content}
+                                    </div>
+
+                                    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
+                                        <button onClick={handleSave} className="btn btn-primary">
+                                            Save to My Works
+                                        </button>
+                                        {isAuthenticated && collections.length > 0 && (
+                                            <select
+                                                value={selectedCollection}
+                                                onChange={(e) => setSelectedCollection(e.target.value)}
+                                                className="brutal-input"
+                                                style={{ appearance: 'auto', padding: '0.5rem', width: 'auto', flex: 1, minWidth: '150px' }}
+                                            >
+                                                <option value="">(Optional: Add to Collection)</option>
+                                                {collections.map(c => (
+                                                    <option key={c.id} value={c.id}>{c.name}</option>
+                                                ))}
+                                            </select>
+                                        )}
+                                        <button onClick={() => setResult(null)} className="btn">
+                                            Discard
+                                        </button>
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </VoidAnimation>
                 </>
             ) : (
                 <motion.div

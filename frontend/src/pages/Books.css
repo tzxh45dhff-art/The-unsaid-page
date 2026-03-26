@@ -352,8 +352,8 @@
 }
 
 .page {
-    background-color: #fdfaf3; /* cream paper */
-    color: #333;
+    background-color: #fdfaf3 !important; /* cream paper — always */
+    color: #2a2015 !important;            /* ink — always dark */
     overflow: hidden;
     box-shadow: inset -1px 0 5px rgba(0,0,0,0.1);
 }
@@ -365,6 +365,8 @@
     line-height: 1.6;
     text-align: justify;
     box-shadow: inset 0 0 30px rgba(0,0,0,0.03);
+    color: #2a2015 !important; /* always dark ink on cream */
+    background-color: #fdfaf3 !important;
 }
 
 .page-content {
@@ -375,6 +377,7 @@
 .page-content p {
     margin-bottom: 0.5rem;
     text-indent: 1.5rem;
+    color: #2a2015 !important;
 }
 
 .page-footer {
