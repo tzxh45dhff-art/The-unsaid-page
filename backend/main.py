@@ -46,6 +46,7 @@ app = FastAPI(
 )
 
 # ── CORS — explicit localhost ports for Vite dev server ──
+# ── CORS — explicit localhost ports for Vite dev server and regex for Vercel ──
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -56,6 +57,7 @@ app.add_middleware(
         "http://127.0.0.1:5174",
         "https://the-unsaid-page.vercel.app",
     ],
+    allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
