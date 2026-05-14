@@ -83,14 +83,7 @@ MOCK_DATA = {
         'excerpt': 'Tyger Tyger, burning bright, in the forests of the night...',
         'cover_image_url': 'https://images.unsplash.com/photo-1549480017-d76466a4b7e8?auto=format&fit=crop&w=800&q=80'
     },
-    'daffodils': {
-        'title': 'I Wandered Lonely as a Cloud',
-        'author': 'William Wordsworth',
-        'type': 'poem',
-        'body': """I wandered lonely as a cloud\nThat floats on high o'er vales and hills,\nWhen all at once I saw a crowd,\nA host, of golden daffodils;\nBeside the lake, beneath the trees,\nFluttering and dancing in the breeze.\n\nContinuous as the stars that shine\nAnd twinkle on the milky way,\nThey stretched in never-ending line\nAlong the margin of a bay:\nTen thousand saw I at a glance,\nTossing their heads in sprightly dance.\n\nThe waves beside them danced; but they\nOut-did the sparkling waves in glee:\nA poet could not but be gay,\nIn such a jocund company:\nI gazed — and gazed — but little thought\nWhat wealth the show to me had brought:\n\nFor oft, when on my couch I lie\nIn vacant or in pensive mood,\nThey flash upon that inward eye\nWhich is the bliss of solitude;\nAnd then my heart with pleasure fills,\nAnd dances with the daffodils.""",
-        'excerpt': 'I wandered lonely as a cloud that floats on high o\'er vales and hills...',
-        'cover_image_url': 'https://images.unsplash.com/photo-1490750967868-88aa4f44baee?auto=format&fit=crop&w=800&q=80'
-    },
+
     'ozymandias': {
         'title': 'Ozymandias',
         'author': 'Percy Bysshe Shelley',

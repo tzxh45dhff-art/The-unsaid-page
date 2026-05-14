@@ -150,58 +150,65 @@ export default function Home() {
                     <div className="section-line"></div>
                 </motion.div>
 
-                <div className="bento-grid">
-                    <motion.div
-                        className="bento-item main-feature"
-                        initial={{ opacity: 0, y: 50, scale: 0.96 }}
-                        whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                        viewport={{ once: true, amount: 0.2 }}
-                        transition={{ duration: 0.7 }}
-                    >
-                        <Card
-                            tag="Editor's Pick"
-                            title="The Road Not Taken"
-                            author="Robert Frost"
-                            excerpt="Two roads diverged in a yellow wood, and sorry I could not travel both and be one traveler, long I stood..."
-                            imgUrl="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
-                            linkTo="/read/road-not-taken"
-                            readingTime="1 min read"
-                        />
-                    </motion.div>
-                    <motion.div
-                        className="bento-item side-feature"
-                        initial={{ opacity: 0, x: 30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, amount: 0.2 }}
-                        transition={{ duration: 0.6, delay: 0.15 }}
-                    >
-                        <Card
-                            tag="Featured Poem"
-                            title="The Ball Poem"
-                            author="John Berryman"
-                            excerpt="What is the boy now, who has lost his ball, what, what is he to do?"
-                            imgUrl="https://images.unsplash.com/photo-1551958219-acbc608c6377?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                            linkTo="/read/the-ball-poem"
-                            readingTime="1 min read"
-                        />
-                    </motion.div>
-                    <motion.div
-                        className="bento-item side-feature"
-                        initial={{ opacity: 0, x: 30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, amount: 0.2 }}
-                        transition={{ duration: 0.6, delay: 0.3 }}
-                    >
-                        <Card
-                            tag="Story"
-                            title='Wuthering Heights - "The Moors"'
-                            author="Emily Brontë"
-                            excerpt="Whatever our souls are made of, his and mine are the same."
-                            imgUrl="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                            linkTo="/read/wuthering-heights"
-                            readingTime="2 min read"
-                        />
-                    </motion.div>
+                <div className="featured-grid">
+                    {[
+                        {
+                            tag: "Editor's Pick",
+                            title: 'The Road Not Taken',
+                            author: 'Robert Frost',
+                            excerpt: 'Two roads diverged in a yellow wood, and sorry I could not travel both…',
+                            imgUrl: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                            linkTo: '/read/road-not-taken',
+                            readingTime: '1 min read',
+                        },
+                        {
+                            tag: 'Featured Poem',
+                            title: 'The Ball Poem',
+                            author: 'John Berryman',
+                            excerpt: 'What is the boy now, who has lost his ball, what, what is he to do?',
+                            imgUrl: 'https://images.unsplash.com/photo-1551958219-acbc608c6377?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                            linkTo: '/read/the-ball-poem',
+                            readingTime: '1 min read',
+                        },
+                        {
+                            tag: 'Story',
+                            title: 'Wuthering Heights',
+                            author: 'Emily Brontë',
+                            excerpt: 'Whatever our souls are made of, his and mine are the same.',
+                            imgUrl: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                            linkTo: '/read/wuthering-heights',
+                            readingTime: '2 min read',
+                        },
+                        {
+                            tag: 'Classic',
+                            title: 'Stopping by Woods on a Snowy Evening',
+                            author: 'Robert Frost',
+                            excerpt: 'The woods are lovely, dark and deep, but I have promises to keep…',
+                            imgUrl: 'https://images.unsplash.com/photo-1491002052546-bf38f186af56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                            linkTo: '/read/stopping-by-woods',
+                            readingTime: '1 min read',
+                        },
+                        {
+                            tag: 'Sonnet',
+                            title: 'Shall I Compare Thee to a Summer\'s Day?',
+                            author: 'William Shakespeare',
+                            excerpt: 'Thou art more lovely and more temperate; rough winds do shake the darling buds of May…',
+                            imgUrl: 'https://images.unsplash.com/photo-1474552226712-ac0f0961a954?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                            linkTo: '/read/sonnet-18',
+                            readingTime: '1 min read',
+                        },
+                    ].map((item, i) => (
+                        <motion.div
+                            key={item.linkTo}
+                            className="featured-card-wrapper"
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, amount: 0.15 }}
+                            transition={{ duration: 0.5, delay: i * 0.1 }}
+                        >
+                            <Card {...item} />
+                        </motion.div>
+                    ))}
                 </div>
             </motion.section>
 

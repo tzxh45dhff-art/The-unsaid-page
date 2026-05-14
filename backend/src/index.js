@@ -45,6 +45,25 @@ app.use('/api/collections', collectionRoutes);
 app.use('/api/prompts', promptRoutes);
 app.use('/api/moderation', moderationRoutes);
 
+// Proxy for fetching book content (avoids CORS)
+app.get('/api/proxy', async (req, res, next) => {
+    try {
+        const targetUrl = req.query.url;
+        if (!targetUrl) return res.status(400).json({ error: 'url parameter is required' });
+        
+        const response = await fetch(targetUrl);
+        if (!response.ok) throw new Error(`Proxy fetch failed: ${response.statusText}`);
+        
+        const contentType = response.headers.get('content-type');
+        const text = await response.text();
+        
+        res.setHeader('Content-Type', contentType || 'text/plain');
+        res.send(text);
+    } catch (err) {
+        next(err);
+    }
+});
+
 // Health check
 app.get('/api/health', (_req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });

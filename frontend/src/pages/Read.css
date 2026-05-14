@@ -261,10 +261,8 @@ body.dark .hl-line.hl-warm {
     color: #2a2520;
 }
 
-body.dark .texture-white-book {
-    background: linear-gradient(180deg, #f5f2ed 0%, #ede8e0 100%);
-    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.04);
-}
+
+
 
 /* Coffee Burnt — warm, stained paper with ring marks */
 .texture-coffee-burnt {
@@ -427,4 +425,117 @@ body.dark .texture-white-book {
         );
     pointer-events: none;
     border-radius: var(--radius-md);
+}
+
+/* ── Dark Mode Texture Overrides ──────────────────── */
+
+body.dark .texture-white-book {
+    background: linear-gradient(180deg, #2a2520 0%, #252018 100%);
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.15);
+    color: #e8dfd3 !important;
+}
+
+body.dark .texture-white-book .hl-line {
+    color: #e8dfd3;
+}
+
+body.dark .texture-coffee-burnt {
+    background: linear-gradient(160deg, #2c2218 0%, #261e12 30%, #302618 60%, #2a2014 100%);
+    color: #e0cdb5 !important;
+}
+
+body.dark .texture-coffee-burnt .hl-line {
+    color: #e0cdb5;
+}
+
+body.dark .texture-coffee-burnt::before {
+    background: radial-gradient(circle, rgba(212, 167, 106, 0.08) 0%, rgba(212, 167, 106, 0.02) 50%, transparent 70%);
+}
+
+body.dark .texture-coffee-burnt::after {
+    background: radial-gradient(circle, rgba(180, 140, 80, 0.05) 0%, transparent 65%);
+}
+
+body.dark .texture-handmade {
+    background: linear-gradient(180deg, #28221a 0%, #2e261c 50%, #2a2318 100%);
+    color: #d8cab4 !important;
+}
+
+body.dark .texture-handmade .hl-line {
+    color: #d8cab4;
+}
+
+body.dark .texture-handmade::before {
+    background-image:
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 3px,
+            rgba(180, 150, 100, 0.015) 3px,
+            rgba(180, 150, 100, 0.015) 4px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 5px,
+            rgba(160, 130, 80, 0.01) 5px,
+            rgba(160, 130, 80, 0.01) 6px
+        );
+}
+
+body.dark .texture-aged-manuscript {
+    background: linear-gradient(150deg, #2a2214 0%, #241c10 25%, #282012 50%, #2c2416 75%, #2a2214 100%);
+    color: #d8c8a8 !important;
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.2);
+}
+
+body.dark .texture-aged-manuscript .hl-line {
+    color: #d8c8a8;
+}
+
+body.dark .texture-linen {
+    background: linear-gradient(180deg, #262220 0%, #2a2620 50%, #262320 100%);
+    color: #d4c8b8 !important;
+}
+
+body.dark .texture-linen .hl-line {
+    color: #d4c8b8;
+}
+
+body.dark .texture-linen::before {
+    background-image:
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 2px,
+            rgba(255, 255, 255, 0.008) 2px,
+            rgba(255, 255, 255, 0.008) 3px
+        ),
+        repeating-linear-gradient(
+            -45deg,
+            transparent,
+            transparent 2px,
+            rgba(255, 255, 255, 0.008) 2px,
+            rgba(255, 255, 255, 0.008) 3px
+        );
+}
+
+/* ── Dark Mode Typography Popover ──────────────────── */
+body.dark .typo-popover {
+    background: rgba(35, 30, 25, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.dark .typo-font-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-main);
+}
+
+body.dark .typo-font-btn:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+body.dark .typo-slider {
+    background: rgba(255, 255, 255, 0.1);
 }

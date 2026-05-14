@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom'
 import { useUser } from '../context/UserContext'
 import { submitPost } from '../data/mockApi'
 import { fetchMyDraft, saveMyDraft, clearMyDraft } from '../api/drafts'
-import ReactMarkdown from 'react-markdown'
 import VoidAnimation from '../components/VoidAnimation'
 import WritingPrompts from '../components/WritingPrompts'
+import SentimentGauge from '../components/SentimentGauge'
+import InkSplash from '../components/InkSplash'
 import { Maximize2, X } from 'lucide-react'
 import './Submit.css'
 
@@ -65,9 +66,30 @@ export default function Submit() {
     const watchedContent = watch('content') || '';
     const watchedValues = watch();
     const [zenMode, setZenMode] = useState(false);
+    const [splashes, setSplashes] = useState([]);
+    const splashIdRef = useRef(0);
+    const zenTextareaRef = useRef(null);
 
     // Typewriter sound — only active in zen mode
     const playClick = useTypewriterSound(zenMode)
+
+    // Ink splash on keydown in zen mode
+    const handleZenKeyDown = useCallback((e) => {
+        playClick()
+        // Spawn ink at approximate cursor position
+        const ta = zenTextareaRef.current
+        if (!ta) return
+        const rect = ta.getBoundingClientRect()
+        // Approximate: random jitter near center-bottom of textarea
+        const x = rect.width * 0.15 + Math.random() * rect.width * 0.7
+        const y = Math.min(ta.scrollHeight, rect.height) * 0.3 + Math.random() * rect.height * 0.5
+        const id = splashIdRef.current++
+        setSplashes(prev => [...prev.slice(-8), { id, x, y }]) // keep max 9 active
+    }, [playClick])
+
+    const removeSplash = useCallback((id) => {
+        setSplashes(prev => prev.filter(s => s.id !== id))
+    }, [])
 
     // ESC exits zen mode
     useEffect(() => {
@@ -240,49 +262,9 @@ export default function Submit() {
                         </div>
                     </div>
 
-                    <div className="form-group-row">
-                        <div className="form-group">
-                            <label htmlFor="moodsInput">Moods (comma-separated)</label>
-                            <input id="moodsInput" {...register('moodsInput')} className="brutal-input" placeholder="quiet, healing, late-night" />
-                            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.5rem' }}>
-                                {['quiet', 'healing', 'heartbreak', 'late-night', 'nostalgic', 'joyful', 'melancholic', 'dreamy', 'romantic', 'angry', 'hopeful', 'reflective'].map(m => {
-                                    const currentMoods = (watchedValues.moodsInput || '').split(',').map(s => s.trim()).filter(Boolean);
-                                    const isSelected = currentMoods.includes(m);
-                                    return (
-                                        <button
-                                            key={m}
-                                            type="button"
-                                            onClick={() => {
-                                                if (isSelected) {
-                                                    setValue('moodsInput', currentMoods.filter(x => x !== m).join(', '));
-                                                } else {
-                                                    setValue('moodsInput', [...currentMoods, m].join(', '));
-                                                }
-                                            }}
-                                            style={{
-                                                background: isSelected ? 'var(--accent-color)' : 'transparent',
-                                                color: isSelected ? 'var(--bg-color)' : 'var(--text-color)',
-                                                border: '2px solid var(--accent-color)',
-                                                padding: '0.2rem 0.6rem',
-                                                fontSize: '0.75rem',
-                                                cursor: 'pointer',
-                                                fontFamily: 'inherit',
-                                                textTransform: 'uppercase',
-                                                fontWeight: 700,
-                                                letterSpacing: '0.05em'
-                                            }}
-                                        >
-                                            {m}
-                                        </button>
-                                    )
-                                })}
-                            </div>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="tagsInput">Tags (comma-separated)</label>
-                            <input id="tagsInput" {...register('tagsInput')} className="brutal-input" placeholder="nostalgia, monsoon, memory" />
-                        </div>
-                    </div>
+                    {/* Hidden fields — auto-populated by AI sentiment analysis */}
+                    <input type="hidden" {...register('moodsInput')} />
+                    <input type="hidden" {...register('tagsInput')} />
 
                     <div className="form-group" style={{ marginTop: '-0.5rem' }}>
                         <label className="radio-label" style={{ textTransform: 'none', letterSpacing: 'normal' }}>
@@ -315,12 +297,81 @@ export default function Submit() {
                         </div>
                         
                         <div className="form-group preview-pane">
-                            <label>Live Preview</label>
-                            <div className="brutal-card preview-content">
-                                {watchedContent ? (
-                                    <ReactMarkdown>{watchedContent}</ReactMarkdown>
-                                ) : (
-                                    <span style={{ color: 'var(--text-muted)' }}>Preview will appear here...</span>
+                            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                ✦ Writing Intelligence
+                            </label>
+
+                            {/* Sentiment Gauge — centerpiece */}
+                            <SentimentGauge text={watchedContent} />
+
+                            {/* Real-time writing stats */}
+                            <div className="brutal-card" style={{ padding: '1rem', marginTop: '0.5rem' }}>
+                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+                                    <div style={{ textAlign: 'center' }}>
+                                        <div style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--accent-color)' }}>
+                                            {watchedContent.trim() ? watchedContent.trim().split(/\s+/).length : 0}
+                                        </div>
+                                        <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--text-muted)' }}>Words</div>
+                                    </div>
+                                    <div style={{ textAlign: 'center' }}>
+                                        <div style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--accent-color)' }}>
+                                            {watchedContent.trim() ? Math.max(1, Math.ceil(watchedContent.trim().split(/\s+/).length / 200)) : 0}
+                                        </div>
+                                        <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--text-muted)' }}>Min read</div>
+                                    </div>
+                                    <div style={{ textAlign: 'center' }}>
+                                        <div style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--accent-color)' }}>
+                                            {watchedContent.split('\n').filter(l => l.trim()).length}
+                                        </div>
+                                        <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--text-muted)' }}>Lines</div>
+                                    </div>
+                                    <div style={{ textAlign: 'center' }}>
+                                        <div style={{ fontSize: '1.4rem', fontWeight: 700, color: watchedContent.length > 5000 ? '#dc503c' : 'var(--accent-color)' }}>
+                                            {watchedContent.length}
+                                        </div>
+                                        <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--text-muted)' }}>Chars</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* AI-powered auto mood tagging */}
+                            <div className="brutal-card" style={{ padding: '1rem', marginTop: '0.75rem', borderColor: 'var(--accent-color)', borderStyle: 'dashed' }}>
+                                {watchedContent.length >= 20 && (
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            // Map sentiment gauge mood to mood tags
+                                            const moodToTags = {
+                                                melancholy: ['melancholic', 'quiet', 'reflective'],
+                                                hope: ['hopeful', 'healing', 'dreamy'],
+                                                passion: ['angry', 'late-night'],
+                                                romance: ['romantic', 'nostalgic', 'heartbreak'],
+                                                mystery: ['dreamy', 'quiet', 'nostalgic'],
+                                                joy: ['joyful', 'healing'],
+                                            }
+                                            // Quick local sentiment check
+                                            const words = watchedContent.toLowerCase().split(/\W+/)
+                                            const kwMap = {
+                                                dark: 'melancholy', lost: 'melancholy', alone: 'melancholy', rain: 'melancholy', tears: 'melancholy',
+                                                hope: 'hope', light: 'hope', dawn: 'hope', warm: 'hope', sun: 'hope', dream: 'hope',
+                                                angry: 'passion', fire: 'passion', burn: 'passion', rage: 'passion',
+                                                love: 'romance', kiss: 'romance', heart: 'romance', desire: 'romance',
+                                                void: 'mystery', night: 'mystery', silence: 'mystery', star: 'mystery',
+                                                joy: 'joy', laugh: 'joy', bright: 'joy', free: 'joy',
+                                            }
+                                            const counts = {}
+                                            for (const w of words) { if (kwMap[w]) counts[kwMap[w]] = (counts[kwMap[w]] || 0) + 1 }
+                                            const topMood = Object.entries(counts).sort((a, b) => b[1] - a[1])[0]?.[0] || 'hope'
+                                            const suggested = moodToTags[topMood] || ['reflective']
+                                            const current = (watchedValues.moodsInput || '').split(',').map(s => s.trim()).filter(Boolean)
+                                            const merged = [...new Set([...current, ...suggested])].join(', ')
+                                            setValue('moodsInput', merged)
+                                        }}
+                                        className="btn"
+                                        style={{ width: '100%', fontSize: '0.75rem', padding: '0.5rem', background: 'rgba(201, 149, 107, 0.1)', border: '1px solid var(--accent-color)' }}
+                                    >
+                                        ✨ Auto-suggest mood tags from my writing
+                                    </button>
                                 )}
                             </div>
                         </div>
@@ -346,14 +397,16 @@ export default function Submit() {
                             <button className="zen-close" onClick={() => setZenMode(false)} aria-label="Exit focus mode">
                                 <X size={20} /> <span>ESC</span>
                             </button>
-                            <div className="zen-content">
+                            <div className="zen-content" style={{ position: 'relative' }}>
+                                <InkSplash splashes={splashes} onRemove={removeSplash} />
                                 <textarea
+                                    ref={zenTextareaRef}
                                     value={watchedContent}
                                     onChange={(e) => {
                                         const field = register('content');
                                         field.onChange({ target: { name: 'content', value: e.target.value } });
                                     }}
-                                    onKeyDown={playClick}
+                                    onKeyDown={handleZenKeyDown}
                                     className="zen-textarea"
                                     placeholder="Let your thoughts flow..."
                                     autoFocus
@@ -361,6 +414,7 @@ export default function Submit() {
                                 <div className="zen-counter">
                                     {watchedContent.length} / 5000
                                 </div>
+                                <SentimentGauge text={watchedContent} />
                             </div>
                         </motion.div>
                     )}

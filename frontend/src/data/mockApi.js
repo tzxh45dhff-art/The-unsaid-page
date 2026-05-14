@@ -121,20 +121,6 @@ export const mockData = {
         body: `Tyger Tyger, burning bright,\nIn the forests of the night;\nWhat immortal hand or eye,\nCould frame thy fearful symmetry?\n\nIn what distant deeps or skies,\nBurnt the fire of thine eyes?\nOn what wings dare he aspire?\nWhat the hand, dare seize the fire?\n\nAnd what shoulder, & what art,\nCould twist the sinews of thy heart?\nAnd when thy heart began to beat,\nWhat dread hand? & what dread feet?\n\nWhat the hammer? what the chain,\nIn what furnace was thy brain?\nWhat the anvil? what dread grasp,\nDare its deadly terrors clasp!\n\nWhen the stars threw down their spears\nAnd water'd heaven with their tears:\nDid he smile his work to see?\nDid he who made the Lamb make thee?\n\nTyger Tyger burning bright,\nIn the forests of the night:\nWhat immortal hand or eye,\nDare frame thy fearful symmetry?`
     },
 
-    // ── William Wordsworth ──
-    'daffodils': {
-        id: 'daffodils',
-        title: 'I Wandered Lonely as a Cloud',
-        date: '1807',
-        author: 'William Wordsworth',
-        type: 'Poem',
-        readingTime: '1 min read',
-        moods: ['joyful', 'heartbreak'],
-        tags: ['love', 'nature'],
-        excerpt: 'I wandered lonely as a cloud that floats on high o\'er vales and hills...',
-        imgUrl: 'https://images.unsplash.com/photo-1490750967868-88aa4f44baee?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-        body: `I wandered lonely as a cloud\nThat floats on high o'er vales and hills,\nWhen all at once I saw a crowd,\nA host, of golden daffodils;\nBeside the lake, beneath the trees,\nFluttering and dancing in the breeze.\n\nContinuous as the stars that shine\nAnd twinkle on the milky way,\nThey stretched in never-ending line\nAlong the margin of a bay:\nTen thousand saw I at a glance,\nTossing their heads in sprightly dance.\n\nThe waves beside them danced; but they\nOut-did the sparkling waves in glee:\nA poet could not but be gay,\nIn such a jocund company:\nI gazed — and gazed — but little thought\nWhat wealth the show to me had brought:\n\nFor oft, when on my couch I lie\nIn vacant or in pensive mood,\nThey flash upon that inward eye\nWhich is the bliss of solitude;\nAnd then my heart with pleasure fills,\nAnd dances with the daffodils.`
-    },
 
     // ── Percy Bysshe Shelley ──
     'ozymandias': {
@@ -255,38 +241,6 @@ export const mockData = {
         body: `By the time she was three, Matilda had taught herself to read by studying newspapers and magazines that lay around the house. At the age of four, she could read fast and well and she naturally began hankering after books.\n\nThe only book in the whole of her household was something called Easy Cooking belonging to her mother, and when she had read this from cover to cover and had learnt all the recipes by heart, she decided that the time had come to ask for a proper book.\n\n"Daddy," she said, "do you think you could buy me a book?"\n\n"A book?" he said. "What d'you want a flaming book for?"\n\n"To read, Daddy."\n\n"What's wrong with the telly, for heaven's sake? We've got a lovely telly with a twelve-inch screen and now you come asking for a book! You're getting spoiled, my girl!"\n\nNearly every weekday afternoon, Matilda walked to the public library. The walk took only ten minutes. When she arrived, she would sit herself down in the children's corner and read for hours. She finished all the children's books in a week.\n\nThen she moved on to the adult section. The librarian, Mrs. Phelps, watched this tiny five-year-old girl sitting for hours reading enormous books, and she was astonished.\n\n"What are you reading?" Mrs. Phelps asked one day.\n\nMatilda held up the book. It was Great Expectations by Charles Dickens.\n\nMrs. Phelps nearly fell off her chair. "Don't you find it difficult?"\n\n"It's wonderful," Matilda said. "I love Mr. Dickens. He makes me laugh."\n\nAnd so it was that Matilda's strong young mind continued to grow, nurtured by the voices of all those authors who had sent their books out into the world like ships on the sea. These books gave Matilda a hopeful and comforting message: You are not alone.`
     },
 
-    // ── Frances Hodgson Burnett ──
-    'secret-garden': {
-        id: 'secret-garden',
-        title: 'The Secret Garden — "Behind the Wall"',
-        date: '1911',
-        author: 'Frances Hodgson Burnett',
-        type: 'Story',
-        readingTime: '3 min read',
-        moods: ['romantic', 'reflective'],
-        tags: ['nature', 'loss'],
-        excerpt: 'If she could find the hidden door, she might find a world that had been sleeping for ten years.',
-        imgUrl: 'https://images.unsplash.com/photo-1585320806297-9794b3e4ce11?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-        body: `Mary stood before the wall, her fingers tracing the ivy that clung to the old brick like a secret trying not to be told.
-
-The robin watched her from the branch of an ancient apple tree. It tilted its head as if to say: closer, closer.
-
-She had heard the gardener, Ben Weatherstaff, say that there was a garden here once. "Locked up ten years ago," he'd muttered, his voice like gravel. "And the key buried with the memories."
-
-But Mary was the kind of child who did not leave mysteries unsolved. She had spent her whole life in India being ignored, and in that vast loneliness she had learned something valuable: how to be patient.
-
-So she waited. She watched. She followed the robin.
-
-And one grey Yorkshire morning, when the wind blew the ivy aside like a curtain, she saw it — a door. Small, green, almost swallowed by time. A keyhole, rusted but real.
-
-Her heart hammered. She pushed.
-
-The door opened onto a world that had been sleeping. Roses, wild and tangled, climbed over arches that had forgotten their shape. The grass was long. The paths had disappeared under moss. The fountain was silent.
-
-But it was alive. Beneath the neglect, beneath the years of locked doors and forgotten promises, things were growing.
-
-Mary stepped inside, and for the first time in her life, she felt like she belonged somewhere. Not because someone had made a place for her — but because she had found one herself.`
-    },
 
     // ── Emily Brontë ──
     'wuthering-heights': {

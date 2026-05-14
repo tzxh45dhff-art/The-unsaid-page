@@ -1,8 +1,20 @@
+# Node / JS
 node_modules/
-.DS_Store
-.env
-backend/.venv/
-vnev/
-*.log
 dist/
 build/
+.env
+bun.lock
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+vnev/
+backend/.venv/
+
+# OS / Editor
+.DS_Store
+.vscode/
+.idea/
+*.log

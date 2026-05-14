@@ -6,6 +6,7 @@ import { submitPost as mockSubmitPost } from '../data/mockApi'
 import { fetchCollections, addToCollection } from '../api/collections'
 import { useUser } from '../context/UserContext'
 import VoidAnimation from '../components/VoidAnimation'
+import SentimentGauge from '../components/SentimentGauge'
 
 const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY;
 
@@ -261,6 +262,8 @@ Respond ONLY with a JSON object with two keys: "title" and "content". No markdow
                                     }}>
                                         {result.content}
                                     </div>
+
+                                    <SentimentGauge text={result.content} />
 
                                     <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
                                         <button onClick={handleSave} className="btn btn-primary">

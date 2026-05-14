@@ -1,0 +1,25 @@
+/* ── DustMotes Background ── */
+.dust-motes-container {
+  position: fixed;
+  inset: 0;
+  z-index: 1;            /* above page backgrounds, below navbar/modals */
+  pointer-events: none;  /* clicks pass through */
+  overflow: hidden;
+}
+
+.dust-mote {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(218, 175, 120, 0.9) 0%,    /* bright warm core */
+    rgba(201, 149, 107, 0.4) 40%,
+    rgba(201, 149, 107, 0.1) 70%,
+    transparent 100%
+  );
+  box-shadow: 0 0 6px 2px rgba(201, 149, 107, 0.25);
+  will-change: transform, opacity;
+  filter: blur(0.3px);
+}

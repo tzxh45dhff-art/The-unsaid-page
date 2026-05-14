@@ -17,6 +17,7 @@ import MyWorks from './pages/MyWorks'
 import AIWriter from './pages/AIWriter'
 import PenPals from './pages/PenPals'
 import useTimeOfDay from './hooks/useTimeOfDay'
+import DustMotes from './components/DustMotes'
 
 function App() {
   const location = useLocation()
@@ -31,6 +32,7 @@ function App() {
 
   return (
     <>
+      <DustMotes />
       <Navbar />
       <main>
         <AnimatePresence mode="wait">
