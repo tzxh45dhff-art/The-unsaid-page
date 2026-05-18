@@ -1,6 +1,6 @@
 /* ─── Poems Page ─── */
-.poems-page {
-    padding: 4rem 2rem;
+.container.poems-page {
+    padding: var(--nav-height) 2rem 4rem;
     min-height: 80vh;
 }
 
@@ -22,7 +22,7 @@
 
 @media (max-width: 768px) {
     .poems-page {
-        padding: 2.5rem 1rem;
+        padding: 5.5rem 1rem 2.5rem;
     }
 
     .poems-header {
@@ -37,7 +37,7 @@
 
 @media (max-width: 480px) {
     .poems-page {
-        padding: 2rem 0.75rem;
+        padding: 5rem 0.75rem 2rem;
     }
 
     .poems-grid {

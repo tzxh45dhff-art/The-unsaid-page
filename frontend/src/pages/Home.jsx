@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import Card from '../components/Card'
 import Bookshelf from '../components/Bookshelf'
+import HeroTree from '../components/HeroTree'
 import { useReadingProgress } from '../hooks/useReadingProgress'
 import { useUser } from '../context/UserContext'
 import { getDailyPrompt } from '../api/prompts'
@@ -62,13 +63,9 @@ export default function Home() {
             animate="visible"
             exit={{ opacity: 0 }}
         >
-            {/* ─── Hero Section ─── */}
+            {/* ─── Hero Section — Glass Forest ─── */}
             <section className="hero-section">
-                <div className="hero-background">
-                    <div className="glow glow-1"></div>
-                    <div className="glow glow-2"></div>
-                    <div className="glow glow-3"></div>
-                </div>
+                <HeroTree />
                 <div className="container hero-content">
                     <motion.p
                         className="hero-eyebrow"
@@ -78,49 +75,90 @@ export default function Home() {
                         a sanctuary for words
                     </motion.p>
                     <motion.h1 variants={fadeUp} custom={1} className="hero-title">
-                        A Quiet Place for{' '}
-                        <span className="title-accent">Loud Minds</span>
+                        The Unsaid{' '}
+                        <span className="title-accent">Page</span>
                     </motion.h1>
-                    <motion.p variants={fadeUp} custom={2} className="hero-subtitle">
-                        Read, reflect, and rest awhile. Share your unsaid words with the world.
+                    <motion.p variants={fadeUp} custom={2} className="hero-tagline">
+                        Where silence finds its voice.
                     </motion.p>
-                    <motion.div variants={fadeUp} custom={3} className="hero-actions">
-                        <Link to="/stories" className="btn btn-primary">Read Stories</Link>
-                        <Link to="/poems" className="btn">Read Poems</Link>
-                    </motion.div>
-
-                    {/* Floating stats */}
-                    <motion.div
-                        variants={fadeUp}
-                        custom={4}
-                        className="hero-stats"
-                    >
-                        <div className="stat-pill">
-                            <span className="stat-number">✦</span>
-                            <span className="stat-label">Stories & Poems</span>
-                        </div>
-                        <div className="stat-pill">
-                            <span className="stat-number">♡</span>
-                            <span className="stat-label">Snap to appreciate</span>
-                        </div>
-                        <div className="stat-pill">
-                            <span className="stat-number">⊹</span>
-                            <span className="stat-label">Earn sanctuary points</span>
-                        </div>
-                    </motion.div>
                 </div>
+
+                {/* Scroll indicator */}
+                <motion.div
+                    className="scroll-indicator"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 2, duration: 1 }}
+                >
+                    <span className="scroll-line" />
+                </motion.div>
             </section>
 
-            <section className="container daily-ritual">
-                <div className="brutal-card ritual-card">
-                    <p className="ritual-label">Today&apos;s Prompt</p>
-                    <h3>{dailyPrompt}</h3>
-                    <div className="ritual-footer">
-                        <span>{streakLabel}</span>
-                        <Link to="/submit" className="btn btn-primary">Start Writing</Link>
+            {/* ─── Philosophy / About Strip ─── */}
+            <motion.section
+                className="philosophy-section"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true, amount: 0.4 }}
+                transition={{ duration: 0.9 }}
+            >
+                <div className="container philosophy-content">
+                    <div className="philosophy-columns">
+                        <div className="philosophy-col">
+                            <span className="philosophy-icon">✦</span>
+                            <h3>Read</h3>
+                            <p>Discover poetry and prose that speaks to the quiet corners of the mind.</p>
+                        </div>
+                        <div className="philosophy-divider" />
+                        <div className="philosophy-col">
+                            <span className="philosophy-icon">♡</span>
+                            <h3>Feel</h3>
+                            <p>Snap to appreciate. Every word carries weight — let it know it was heard.</p>
+                        </div>
+                        <div className="philosophy-divider" />
+                        <div className="philosophy-col">
+                            <span className="philosophy-icon">⊹</span>
+                            <h3>Write</h3>
+                            <p>Share your unsaid words. This is your page — fill it with what matters.</p>
+                        </div>
                     </div>
                 </div>
+            </motion.section>
+
+            {/* ─── Daily Prompt / Ritual ─── */}
+            <section className="container daily-ritual">
+                <motion.div
+                    className="ritual-card"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.4 }}
+                    transition={{ duration: 0.7 }}
+                >
+                    <p className="ritual-label">Today&apos;s Prompt</p>
+                    <h3 className="ritual-prompt">{dailyPrompt}</h3>
+                    <div className="ritual-footer">
+                        <span className="ritual-streak">{streakLabel}</span>
+                        <Link to="/submit" className="btn btn-primary">Start Writing</Link>
+                    </div>
+                </motion.div>
             </section>
+
+            {/* ─── Editorial Quote ─── */}
+            <motion.section
+                className="quote-section"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.8 }}
+            >
+                <div className="container">
+                    <blockquote className="editorial-quote">
+                        <span className="quote-mark">"</span>
+                        <p>There is no greater agony than bearing an untold story inside you.</p>
+                        <cite>— Maya Angelou</cite>
+                    </blockquote>
+                </div>
+            </motion.section>
 
             {/* ─── Continue Reading Bookshelf ─── */}
             {isAuthenticated && shelfArray.length > 0 && (

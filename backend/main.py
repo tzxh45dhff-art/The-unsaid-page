@@ -8,7 +8,7 @@ from datetime import datetime, timezone
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi import Limiter
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 
@@ -66,7 +66,15 @@ app.add_middleware(
 # ── Rate Limiter — 100/15 min per IP ──
 limiter = Limiter(key_func=get_remote_address, default_limits=["100/15minutes"])
 app.state.limiter = limiter
-app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
+async def _handle_rate_limit(request: Request, exc: Exception) -> JSONResponse:
+    detail = getattr(exc, "detail", "Too many requests")
+    return JSONResponse(
+        status_code=429,
+        content={"error": f"Rate limit exceeded: {detail}"},
+    )
+
+app.add_exception_handler(RateLimitExceeded, _handle_rate_limit)
 
 # ── Mount Routers ──
 app.include_router(auth_router)

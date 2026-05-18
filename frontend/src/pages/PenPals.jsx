@@ -146,7 +146,7 @@ export default function PenPals() {
 
     if (!isAuthenticated) {
         return (
-            <div className="container" style={{ textAlign: 'center', padding: '4rem 2rem' }}>
+            <div className="container" style={{ textAlign: 'center', padding: 'var(--nav-height) 2rem 4rem' }}>
                 <h1 style={{ fontSize: '3rem', marginBottom: '1rem', color: 'var(--accent-color)' }}>Pen Pals</h1>
                 <p>Sign in to connect with other writers.</p>
                 <button className="btn btn-primary" onClick={() => navigate('/login')} style={{ marginTop: '2rem' }}>Sign In</button>
@@ -157,7 +157,7 @@ export default function PenPals() {
     // Chat view — full width
     if (activeTab === 'chat' && chatFriend) {
         return (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="container" style={{ padding: '4rem 2rem', maxWidth: '800px' }}>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="container" style={{ padding: 'var(--nav-height) 2rem 4rem', maxWidth: '800px' }}>
                 <header style={{ marginBottom: '2rem', textAlign: 'center' }}>
                     <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>Pen Pals</h1>
                     <div className="section-line"></div>
@@ -173,7 +173,7 @@ export default function PenPals() {
     }
 
     return (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="container" style={{ padding: '4rem 2rem', maxWidth: '800px' }}>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="container" style={{ padding: 'var(--nav-height) 2rem 4rem', maxWidth: '800px' }}>
             <header style={{ marginBottom: '3rem', textAlign: 'center' }}>
                 <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }}>Pen Pals</h1>
                 <div className="section-line"></div>

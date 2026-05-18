@@ -43,30 +43,32 @@ async def list_posts(
     mood: Optional[str] = Query(None),
     tag: Optional[str] = Query(None),
 ):
-    sql = """SELECT id, title, slug, type, excerpt, cover_image_url,
-                    reading_time_label, snap_count, published_at, moods, tags
-             FROM posts WHERE status = 'published' AND visibility = 'public'"""
+    sql = """SELECT p.id, p.title, p.slug, p.type, p.excerpt, p.cover_image_url,
+                    p.reading_time_label, p.snap_count, p.published_at, p.moods, p.tags, p.is_anonymous,
+                    u.username AS author_name, u.display_name AS author_display
+             FROM posts p LEFT JOIN users u ON p.author_id = u.id 
+             WHERE p.status = 'published' AND p.visibility = 'public'"""
     params: list = []
     idx = 1
 
     if type and type in ("poem", "story", "reflection"):
-        sql += f" AND type = ${idx}"
+        sql += f" AND p.type = ${idx}"
         params.append(type)
         idx += 1
     if q:
-        sql += f" AND (title ILIKE ${idx} OR body_markdown ILIKE ${idx} OR excerpt ILIKE ${idx})"
+        sql += f" AND (p.title ILIKE ${idx} OR p.body_markdown ILIKE ${idx} OR p.excerpt ILIKE ${idx})"
         params.append(f"%{q}%")
         idx += 1
     if mood:
-        sql += f" AND ${idx} = ANY(moods)"
+        sql += f" AND ${idx} = ANY(p.moods)"
         params.append(mood)
         idx += 1
     if tag:
-        sql += f" AND ${idx} = ANY(tags)"
+        sql += f" AND ${idx} = ANY(p.tags)"
         params.append(tag)
         idx += 1
 
-    sql += " ORDER BY published_at DESC"
+    sql += " ORDER BY p.published_at DESC"
     rows = await database.query(sql, *params)
     return rows
 

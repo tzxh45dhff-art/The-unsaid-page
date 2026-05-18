@@ -1,4 +1,4 @@
-.my-works-page {
+.container.my-works-page {
     padding-top: var(--nav-height);
     padding-bottom: 4rem;
     min-height: calc(100vh - 200px);

@@ -23,6 +23,9 @@ function useTypewriterSound(enabled) {
                 audioCtxRef.current = new (window.AudioContext || window.webkitAudioContext)()
             }
             const ctx = audioCtxRef.current
+            if (ctx.state === 'suspended') {
+                ctx.resume()
+            }
             const oscillator = ctx.createOscillator()
             const gain = ctx.createGain()
 
@@ -70,8 +73,8 @@ export default function Submit() {
     const splashIdRef = useRef(0);
     const zenTextareaRef = useRef(null);
 
-    // Typewriter sound — only active in zen mode
-    const playClick = useTypewriterSound(zenMode)
+    // Typewriter sound — active by default
+    const playClick = useTypewriterSound(true)
 
     // Ink splash on keydown in zen mode
     const handleZenKeyDown = useCallback((e) => {
@@ -286,6 +289,7 @@ export default function Submit() {
                                 className="brutal-input"
                                 placeholder="Start writing (Markdown supported like **bold**)..."
                                 style={{ resize: 'vertical' }}
+                                onKeyDown={playClick}
                             ></textarea>
                             <div style={{ marginTop: '0.5rem', fontSize: '0.85rem', color: watchedContent.length > 5000 ? 'var(--accent-color)' : 'var(--text-muted)' }}>
                                 {watchedContent.length} / 5000 characters

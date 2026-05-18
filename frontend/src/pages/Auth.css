@@ -4,8 +4,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 75vh;
-    padding: 2rem 1rem;
+    min-height: 100vh;
+    padding: var(--nav-height) 1rem 4rem;
 }
 
 .auth-card {

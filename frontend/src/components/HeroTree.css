@@ -1,0 +1,116 @@
+/* ── HeroTree wrapper ── */
+.hero-tree-wrapper {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.hero-tree-sky {
+    position: absolute;
+    inset: 0;
+    transition: background 1.4s ease;
+}
+
+/* ── WebGL Canvas ──
+ * Atmospheric background — enough detail to feel alive,
+ * soft enough to never compete with text.
+ */
+.hero-tree-canvas {
+    position: absolute !important;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    opacity: 0.55;
+    filter: blur(0.6px) saturate(1.15);
+    transition: opacity 1.4s ease, filter 1.4s ease;
+}
+
+/* ── Cinematic vignette — subtle, warm ──
+ * Only darkens the far edges. Does NOT touch center.
+ */
+.hero-tree-wrapper::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse 120% 120% at 50% 50%,
+            transparent 40%,
+            rgba(20, 16, 12, 0.18) 65%,
+            rgba(20, 16, 12, 0.45) 100%
+        );
+}
+
+/* ── Text readability scrim ──
+ * Very soft, warm-tinted wash — NOT a solid dark block.
+ * Centered on the upper-center where heading sits.
+ */
+.hero-tree-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse 80% 50% at 50% 38%,
+            rgba(28, 22, 16, 0.42) 0%,
+            rgba(28, 22, 16, 0.18) 45%,
+            transparent 75%
+        );
+}
+
+/* ── Ground glow ── */
+.hero-tree-ground-glow {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 35%;
+    pointer-events: none;
+    z-index: 3;
+    transition: background 1.4s ease;
+}
+
+/* ── Bottom fade to page background ──
+ * Blends the tree into the page seamlessly
+ */
+.hero-tree-wrapper .hero-tree-ground-glow::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: linear-gradient(to top,
+        var(--bg-color) 0%,
+        rgba(0, 0, 0, 0) 100%
+    );
+    pointer-events: none;
+}
+
+/* ── Responsive refinements ── */
+@media (min-width: 1400px) {
+    .hero-tree-canvas {
+        opacity: 0.6;
+        filter: blur(0.4px) saturate(1.2);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-tree-canvas {
+        opacity: 0.4;
+        filter: blur(1px) saturate(1.1);
+    }
+
+    .hero-tree-wrapper::before {
+        background:
+            radial-gradient(ellipse 90% 55% at 50% 35%,
+                rgba(28, 22, 16, 0.5) 0%,
+                rgba(28, 22, 16, 0.2) 50%,
+                transparent 80%
+            );
+    }
+}

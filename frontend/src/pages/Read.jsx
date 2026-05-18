@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion'
 import { useParams, Link } from 'react-router-dom'
-import { ArrowLeft, Type, Layers, Eye } from 'lucide-react'
+import { ArrowLeft, Type, Layers, Moon, Sun } from 'lucide-react'
 import { useFetch } from '../hooks/useFetch'
 import { fetchPostById } from '../data/mockApi'
 import { ReadSkeleton } from '../components/Skeleton'
@@ -220,9 +220,11 @@ export default function Read() {
                         <button
                             className={`back-link ${focusMode ? 'active' : ''}`}
                             onClick={() => setFocusMode((v) => !v)}
-                            title="Toggle focus mode"
+                            title={focusMode ? 'Turn lights back on' : 'Dim the lights for distraction-free reading'}
+                            aria-label={focusMode ? 'Exit focus mode' : 'Enter focus mode'}
                         >
-                            <Eye size={18} /> {focusMode ? 'Exit Focus' : 'Focus'}
+                            {focusMode ? <Sun size={18} /> : <Moon size={18} />}
+                            {focusMode ? 'Lights On' : 'Dim the Lights'}
                         </button>
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 /* ─── Books & Audiobooks Page ─── */
-.books-container {
-    padding-top: 3rem;
+.container.books-container {
+    padding-top: var(--nav-height);
     padding-bottom: 4rem;
     max-width: 1200px;
 }
@@ -434,7 +434,7 @@
 /* ── Mobile Responsive ── */
 @media (max-width: 768px) {
     .books-container {
-        padding-top: 2rem;
+        padding-top: 5.5rem;
     }
 
     .books-search {

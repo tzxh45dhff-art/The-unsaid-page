@@ -80,7 +80,7 @@ export default function Collections() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="container"
-            style={{ padding: '4rem 2rem', minHeight: '80vh' }}
+            style={{ padding: 'var(--nav-height) 2rem 4rem', minHeight: '80vh' }}
         >
             {/* Header */}
             <header style={{ marginBottom: '3rem', textAlign: 'center' }}>

@@ -505,7 +505,7 @@ const normalize = (post) => ({
     id: post.slug || post.id,
     title: post.title,
     date: post.published_at ? new Date(post.published_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '',
-    author: post.author_display || post.author_name || 'Anonymous',
+    author: post.is_anonymous ? 'Anonymous' : (post.author_display || post.author_name || 'Anonymous'),
     type: post.type ? post.type.charAt(0).toUpperCase() + post.type.slice(1) : '',
     readingTime: post.reading_time_label || '',
     excerpt: post.excerpt || '',

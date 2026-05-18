@@ -29,6 +29,9 @@
   --radius-sm: 12px;
   --radius-md: 20px;
   --radius-lg: 28px;
+
+  /* Floating navbar clearance — use this for all non-hero page tops */
+  --nav-height: 7rem;
 }
 
 body.dark {
@@ -99,6 +102,9 @@ body {
 
 main {
   flex: 1;
+  /* No extra padding needed — the hero section handles its own top padding,
+     and the navbar floats over content by design. Non-hero pages should
+     add their own padding-top if needed. */
 }
 
 /* Typography */
@@ -208,10 +214,74 @@ a:hover {
   margin: 1rem auto;
 }
 
-body.reader-focus-mode nav,
-body.reader-focus-mode footer,
-.focus-mode nav, .focus-mode footer {
-  display: none !important;
+/* ── Zen Reading Mode — Cinematic "Dim the Lights" ── */
+body.reader-focus-mode::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 50% 45%,
+    transparent 25%,
+    rgba(10, 8, 6, 0.55) 60%,
+    rgba(10, 8, 6, 0.92) 100%
+  );
+  z-index: 50;
+  pointer-events: none;
+  animation: zenVignetteIn 0.8s ease forwards;
+}
+
+@keyframes zenVignetteIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+body.reader-focus-mode .navbar-float {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity 0.6s ease !important;
+}
+
+body.reader-focus-mode footer {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity 0.6s ease !important;
+}
+
+body.reader-focus-mode .dust-motes-container {
+  opacity: 0 !important;
+  transition: opacity 0.8s ease !important;
+}
+
+body.reader-focus-mode .read-container {
+  position: relative;
+  z-index: 60;
+}
+
+body.reader-focus-mode .read-container .read-header {
+  z-index: 60;
+}
+
+body.reader-focus-mode .article-body {
+  text-shadow: 0 0 40px rgba(212, 167, 106, 0.06);
+}
+
+body.reader-focus-mode .article-body .hl-line {
+  text-shadow: 0 0 24px rgba(212, 167, 106, 0.05);
+  transition: text-shadow 0.4s ease;
+}
+
+body.reader-focus-mode .article-body .hl-line:hover {
+  text-shadow: 0 0 32px rgba(212, 167, 106, 0.12);
+}
+
+/* Dark theme: slightly different vignette tint */
+body.dark.reader-focus-mode::after {
+  background: radial-gradient(
+    ellipse at 50% 45%,
+    transparent 20%,
+    rgba(5, 4, 3, 0.5) 55%,
+    rgba(5, 4, 3, 0.95) 100%
+  );
 }
 
 /* ── Time-Reactive Lighting ─────────────────────── */
@@ -305,6 +375,10 @@ select.brutal-input {
   .section-header {
     margin-bottom: 2rem;
   }
+
+  :root {
+    --nav-height: 5.5rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -319,5 +393,9 @@ select.brutal-input {
   .btn {
     padding: 0.6rem 1rem;
     font-size: 0.82rem;
+  }
+
+  :root {
+    --nav-height: 5rem;
   }
 }

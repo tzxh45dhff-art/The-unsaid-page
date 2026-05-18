@@ -7,6 +7,7 @@ import { fetchCollections, addToCollection } from '../api/collections'
 import { useUser } from '../context/UserContext'
 import VoidAnimation from '../components/VoidAnimation'
 import SentimentGauge from '../components/SentimentGauge'
+import WritingPrompts from '../components/WritingPrompts'
 
 const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY;
 
@@ -167,6 +168,8 @@ Respond ONLY with a JSON object with two keys: "title" and "content". No markdow
                     Describe the feeling, setting, or theme of what you want to say, and let the Void write it for you.
                 </p>
             </header>
+
+            <WritingPrompts onSelectPrompt={(text) => setPrompt(text)} />
 
             {!submitted ? (
                 <>
