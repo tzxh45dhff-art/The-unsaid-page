@@ -47,7 +47,7 @@ export default function Poems() {
 
             <div className="poems-grid">
                 {loading ? (
-                    Array.from({ length: 3 }).map((_, index) => (
+                    Array.from({ length: 8 }).map((_, index) => (
                         <div key={index} style={{ height: '400px' }}>
                             <CardSkeleton />
                         </div>

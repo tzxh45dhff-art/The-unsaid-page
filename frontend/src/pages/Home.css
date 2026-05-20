@@ -448,6 +448,7 @@
 
     .philosophy-columns {
         flex-direction: column;
+        align-items: center;
         gap: 0;
     }
 

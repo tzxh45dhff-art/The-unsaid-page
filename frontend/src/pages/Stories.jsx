@@ -57,7 +57,7 @@ export default function Stories() {
 
             <div className="stories-grid">
                 {loading ? (
-                    Array.from({ length: 3 }).map((_, index) => (
+                    Array.from({ length: 8 }).map((_, index) => (
                         <div key={index} style={{ height: '450px' }}>
                             <CardSkeleton />
                         </div>

@@ -388,11 +388,13 @@ body.sepia .pill-dropdown {
    Responsive
    ══════════════════════════════════════════════════ */
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .desktop-only {
         display: none !important;
     }
+}
 
+@media (max-width: 768px) {
     .navbar-float {
         top: 0.75rem;
     }

@@ -192,7 +192,7 @@ export default function Collections() {
             {/* Items Grid */}
             {itemsLoading ? (
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1rem' }}>
-                    {[1,2,3].map(i => (
+                    {[1,2,3,4,5,6,7,8].map(i => (
                         <div key={i} className="brutal-card" style={{ padding: '1.5rem', opacity: 0.5 }}>
                             <div style={{ height: '1.2rem', background: 'var(--glass-bg)', borderRadius: '6px', marginBottom: '0.75rem', width: '70%' }}></div>
                             <div style={{ height: '0.9rem', background: 'var(--glass-bg)', borderRadius: '6px', width: '90%' }}></div>

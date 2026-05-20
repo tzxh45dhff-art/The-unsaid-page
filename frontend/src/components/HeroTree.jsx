@@ -1,4 +1,4 @@
-import { useRef, useMemo, memo, useEffect } from 'react'
+import { useRef, useMemo, memo, useEffect, Suspense } from 'react'
 import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import { useSeason } from '../context/SeasonContext'
@@ -322,7 +322,9 @@ function HeroTree() {
                 dpr={[1, 2]}
                 style={{ background: 'transparent' }}
             >
-                <Scene />
+                <Suspense fallback={null}>
+                    <Scene />
+                </Suspense>
             </Canvas>
             <div
                 className="hero-tree-ground-glow"

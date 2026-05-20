@@ -13,22 +13,28 @@
 
 .brutal-skeleton-line {
     height: 1.2rem;
-    background: linear-gradient(90deg, rgba(201, 149, 107, 0.1) 25%, rgba(201, 149, 107, 0.2) 50%, rgba(201, 149, 107, 0.1) 75%);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.06) 25%, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0.06) 75%);
     background-size: 200% 100%;
     margin-bottom: 1rem;
     width: 100%;
     border-radius: 8px;
-    animation: glass-shimmer 2s infinite ease-in-out;
+    animation: glass-shimmer 1.5s infinite linear;
 }
 
 .brutal-skeleton-img {
     height: 200px;
-    background: linear-gradient(90deg, rgba(201, 149, 107, 0.08) 25%, rgba(201, 149, 107, 0.16) 50%, rgba(201, 149, 107, 0.08) 75%);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.06) 25%, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0.06) 75%);
     background-size: 200% 100%;
     margin-bottom: 2rem;
     width: 100%;
     border-radius: var(--radius-sm);
-    animation: glass-shimmer 2s infinite ease-in-out;
+    animation: glass-shimmer 1.5s infinite linear;
+}
+
+body.dark .brutal-skeleton-line,
+body.dark .brutal-skeleton-img {
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.06) 25%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.06) 75%);
+    background-size: 200% 100%;
 }
 
 .brutal-skeleton-line.short {

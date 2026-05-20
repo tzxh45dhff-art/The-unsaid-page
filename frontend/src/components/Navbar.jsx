@@ -120,9 +120,9 @@ export default function Navbar() {
                 {isOpen && (
                     <motion.div
                         className="pill-dropdown"
-                        initial={{ opacity: 0, y: -12, scale: 0.97 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: -12, scale: 0.97 }}
+                        initial={{ opacity: 0, y: -12, x: "-50%", scale: 0.97 }}
+                        animate={{ opacity: 1, y: 0, x: "-50%", scale: 1 }}
+                        exit={{ opacity: 0, y: -12, x: "-50%", scale: 0.97 }}
                         transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
                     >
                         <nav className="dropdown-links">

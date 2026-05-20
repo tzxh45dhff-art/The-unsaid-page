@@ -160,9 +160,9 @@ a:hover {
 
 /* ─── Container ─── */
 .container {
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 5vw;
   width: 100%;
 }
 
@@ -355,7 +355,7 @@ select.brutal-input {
 /* ── Mobile-First Responsive ─────────────────────── */
 @media (max-width: 768px) {
   .container {
-    padding: 0 1rem;
+    padding: 0 1.5rem;
   }
 
   .btn {
@@ -383,7 +383,7 @@ select.brutal-input {
 
 @media (max-width: 480px) {
   .container {
-    padding: 0 0.75rem;
+    padding: 0 1rem;
   }
 
   .brutal-card {
