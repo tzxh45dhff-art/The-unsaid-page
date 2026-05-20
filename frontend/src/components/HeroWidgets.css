@@ -1,0 +1,396 @@
+/* ═══════════════════════════════════════════════════════
+   HeroWidgets styling — premium warm dark-mode glassmorphism
+   ═══════════════════════════════════════════════════════ */
+
+.hero-widgets {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    width: 320px;
+    max-width: 100%;
+    z-index: 20;
+    pointer-events: auto; /* Ensure cards are clickable */
+}
+
+@media (min-width: 992px) {
+    .hero-widgets {
+        align-self: flex-end;
+        margin-right: -3rem;
+        margin-bottom: 2rem;
+    }
+}
+
+
+/* Base Widget Card Override */
+.widget-card {
+    background: rgba(20, 16, 12, 0.28) !important;
+    backdrop-filter: blur(14px) saturate(1.1) !important;
+    -webkit-backdrop-filter: blur(14px) saturate(1.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.2) !important;
+    border-radius: 20px !important;
+    padding: 1rem 1.15rem !important;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+    color: #f0e8dc !important;
+}
+
+.widget-card:hover {
+    transform: translateY(-2px) scale(1.01) !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Text elements */
+.widget-eyebrow {
+    display: block;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(240, 232, 220, 0.45);
+    margin-bottom: 0.25rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+}
+
+.widget-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.02rem;
+    font-weight: 600;
+    color: rgba(240, 232, 220, 0.95);
+    margin-bottom: 0.85rem;
+    letter-spacing: -0.01em;
+}
+
+/* ── Mood Card Row ── */
+.mood-icons-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.mood-icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid transparent;
+    background: transparent;
+    color: rgba(240, 232, 220, 0.45);
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.mood-icon-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(240, 232, 220, 0.9);
+    transform: scale(1.1);
+}
+
+.mood-icon-btn.active {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--accent-color);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    transform: scale(1.08);
+}
+
+/* ── Sound Player Widget ── */
+.player-main-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Album artwork */
+.player-artwork {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.18);
+    transition: all 0.4s ease;
+    overflow: hidden;
+}
+
+.artwork-emoji {
+    font-size: 1.25rem;
+    z-index: 2;
+}
+
+/* Pulsing aura when playing */
+.player-card.playing .player-artwork {
+    animation: bounceSlow 4s infinite ease-in-out;
+}
+
+.pulse-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    animation: pulseRing 2s infinite cubic-bezier(0.215, 0.610, 0.355, 1);
+    z-index: 1;
+}
+
+@keyframes pulseRing {
+    0% { transform: scale(0.95); opacity: 0.8; }
+    100% { transform: scale(1.3); opacity: 0; }
+}
+
+@keyframes bounceSlow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
+/* Meta info & Dropdown Trigger */
+.player-meta-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.player-selector-trigger {
+    background: transparent;
+    border: none;
+    color: rgba(240, 232, 220, 0.95);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    transition: color 0.3s ease;
+    width: fit-content;
+}
+
+.player-selector-trigger:hover {
+    color: var(--accent-color);
+}
+
+/* Controls */
+.player-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+}
+
+.play-btn-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(240, 232, 220, 0.85);
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.play-btn-circle:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    transform: scale(1.08);
+}
+
+.play-btn-circle.active {
+    background: var(--accent-color);
+    border-color: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    box-shadow: 0 4px 15px var(--accent-glow);
+}
+
+/* Volume Slider */
+.volume-control-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.volume-btn {
+    background: transparent;
+    border: none;
+    color: rgba(240, 232, 220, 0.5);
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+}
+
+.volume-btn:hover {
+    color: rgba(240, 232, 220, 0.9);
+    transform: scale(1.08);
+}
+
+.volume-slider {
+    width: 0;
+    opacity: 0;
+    margin-left: 0;
+    transition: width 0.35s ease, opacity 0.35s ease;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.15);
+    outline: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+}
+
+.volume-slider::-webkit-slider-runnable-track {
+    height: 4px;
+}
+
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    cursor: pointer;
+    margin-top: -3px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+
+/* Slide open volume on wrapper hover */
+.volume-control-wrapper:hover .volume-slider {
+    width: 60px;
+    opacity: 1;
+    margin-left: 6px;
+}
+
+/* ── Options Drawer ── */
+.player-options-drawer {
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    animation: slideDown 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.drawer-header {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(240, 232, 220, 0.4);
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+}
+
+.options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.sound-option-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 10px;
+    padding: 0.5rem 0.75rem;
+    color: rgba(240, 232, 220, 0.8);
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.sound-option-btn:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    transform: translateX(4px);
+}
+
+.sound-option-btn.active {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.12);
+    color: var(--accent-color);
+}
+
+.option-emoji {
+    font-size: 1.12rem;
+}
+
+.option-meta {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.option-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.option-cat {
+    font-size: 0.68rem;
+    color: rgba(240, 232, 220, 0.4);
+}
+
+/* Tiny visualizer bars inside active option */
+.playing-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    height: 12px;
+}
+
+.playing-bars .bar {
+    width: 2px;
+    background: var(--accent-color);
+    border-radius: 1px;
+    animation: barPulse 1s infinite alternate;
+}
+
+.playing-bars .bar1 { height: 12px; animation-delay: 0.1s; }
+.playing-bars .bar2 { height: 6px; animation-delay: 0.4s; }
+.playing-bars .bar3 { height: 9px; animation-delay: 0.2s; }
+
+@keyframes barPulse {
+    0% { transform: scaleY(0.4); }
+    100% { transform: scaleY(1.0); }
+}
+
+/* ── Responsive Widgets ── */
+@media (max-width: 992px) {
+    .hero-widgets {
+        width: 100%;
+        max-width: 440px;
+        align-self: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .widget-card {
+        padding: 1.25rem !important;
+        border-radius: 20px !important;
+    }
+    
+    .mood-icon-btn {
+        width: 38px;
+        height: 38px;
+    }
+}
+

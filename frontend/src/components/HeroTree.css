@@ -22,8 +22,8 @@
     inset: 0;
     width: 100% !important;
     height: 100% !important;
-    opacity: 0.55;
-    filter: blur(0.6px) saturate(1.15);
+    opacity: 0.92; /* Rich, vibrant, high-fidelity presence */
+    filter: blur(0px) saturate(1.18); /* Crystal clear, premium sharpness */
     transition: opacity 1.4s ease, filter 1.4s ease;
 }
 
@@ -38,15 +38,15 @@
     pointer-events: none;
     background:
         radial-gradient(ellipse 120% 120% at 50% 50%,
-            transparent 40%,
-            rgba(20, 16, 12, 0.18) 65%,
-            rgba(20, 16, 12, 0.45) 100%
+            transparent 45%,
+            rgba(20, 16, 12, 0.12) 70%,
+            rgba(20, 16, 12, 0.35) 100%
         );
 }
 
 /* ── Text readability scrim ──
  * Very soft, warm-tinted wash — NOT a solid dark block.
- * Centered on the upper-center where heading sits.
+ * Centered on the left side where the heading sits.
  */
 .hero-tree-wrapper::before {
     content: '';
@@ -55,10 +55,10 @@
     z-index: 2;
     pointer-events: none;
     background:
-        radial-gradient(ellipse 80% 50% at 50% 38%,
-            rgba(28, 22, 16, 0.42) 0%,
-            rgba(28, 22, 16, 0.18) 45%,
-            transparent 75%
+        radial-gradient(ellipse 80% 55% at 25% 45%, /* Scrim shifted left to align behind text */
+            rgba(28, 22, 16, 0.45) 0%,
+            rgba(28, 22, 16, 0.2) 48%,
+            transparent 78%
         );
 }
 
@@ -90,7 +90,6 @@
     );
     pointer-events: none;
 }
-
 /* ── Responsive refinements ── */
 @media (min-width: 1400px) {
     .hero-tree-canvas {
@@ -101,8 +100,8 @@
 
 @media (max-width: 768px) {
     .hero-tree-canvas {
-        opacity: 0.4;
-        filter: blur(1px) saturate(1.1);
+        opacity: 0.45; /* Soft opacity behind text on mobile */
+        filter: blur(1.2px) saturate(1.1); /* Dreamy blur to guarantee legibility */
     }
 
     .hero-tree-wrapper::before {

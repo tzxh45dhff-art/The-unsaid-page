@@ -1,9 +1,11 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { Pencil, PlusSquare } from 'lucide-react'
 import Card from '../components/Card'
 import Bookshelf from '../components/Bookshelf'
 import HeroTree from '../components/HeroTree'
+import HeroWidgets from '../components/HeroWidgets'
 import { useReadingProgress } from '../hooks/useReadingProgress'
 import { useUser } from '../context/UserContext'
 import { getDailyPrompt } from '../api/prompts'
@@ -66,21 +68,36 @@ export default function Home() {
             {/* ─── Hero Section — Glass Forest ─── */}
             <section className="hero-section">
                 <HeroTree />
-                <div className="container hero-content">
-                    <motion.p
-                        className="hero-eyebrow"
-                        variants={fadeUp}
-                        custom={0}
-                    >
-                        a sanctuary for words
-                    </motion.p>
-                    <motion.h1 variants={fadeUp} custom={1} className="hero-title">
-                        The Unsaid{' '}
-                        <span className="title-accent">Page</span>
-                    </motion.h1>
-                    <motion.p variants={fadeUp} custom={2} className="hero-tagline">
-                        Where silence finds its voice.
-                    </motion.p>
+                <div className="container hero-container">
+                    <div className="hero-content">
+                        <motion.p
+                            className="hero-eyebrow"
+                            variants={fadeUp}
+                            custom={0}
+                        >
+                            ✦ a sanctuary for words
+                        </motion.p>
+                        <motion.h1 variants={fadeUp} custom={1} className="hero-title">
+                            The <br />
+                            <span className="title-accent">Unsaid Page</span>
+                        </motion.h1>
+                        <motion.p variants={fadeUp} custom={2} className="hero-tagline">
+                            Where silence finds its voice.
+                            <br />
+                            A quiet space to write, read, and feel
+                            <br />
+                            the words we never say out loud.
+                        </motion.p>
+                        <motion.div variants={fadeUp} custom={3} className="hero-buttons">
+                            <Link to="/submit" className="btn btn-primary">
+                                Start Writing <Pencil size={16} />
+                            </Link>
+                            <Link to="/poems" className="btn">
+                                Explore Poems <PlusSquare size={16} />
+                            </Link>
+                        </motion.div>
+                    </div>
+                    <HeroWidgets />
                 </div>
 
                 {/* Scroll indicator */}

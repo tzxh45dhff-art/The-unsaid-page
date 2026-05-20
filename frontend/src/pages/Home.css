@@ -4,21 +4,36 @@
     min-height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     overflow: hidden;
-    text-align: center;
-    padding: 0 1.5rem;
+    text-align: left;
+    padding: 6rem 0 4rem;
 }
+
+.hero-container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+}
+
+@media (min-width: 992px) {
+    .hero-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 4rem;
+    }
+}
+
 
 .hero-content {
     position: relative;
-    z-index: 10;
-    max-width: 900px;
+    max-width: 580px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: 0;
-    padding: 3rem 2rem;
+    padding: 4rem 0;
 }
 
 /* Warm ambient glow behind the title */
@@ -26,14 +41,14 @@
     content: '';
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: 45%;
     transform: translate(-50%, -50%);
     width: 140%;
     height: 160%;
     background: radial-gradient(
         ellipse at center,
-        rgba(201, 149, 107, 0.05) 0%,
-        rgba(201, 149, 107, 0.02) 40%,
+        rgba(201, 149, 107, 0.06) 0%,
+        rgba(201, 149, 107, 0.02) 45%,
         transparent 70%
     );
     pointer-events: none;
@@ -44,38 +59,53 @@
 
 /* ─── Hero Eyebrow ─── */
 .hero-eyebrow {
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 0.4em;
+    letter-spacing: 0.35em;
     color: var(--accent-color);
-    margin-bottom: 1.75rem;
+    margin-bottom: 1.5rem;
     font-weight: 500;
     opacity: 0.85;
 }
 
 /* ─── Hero Title — the star ─── */
 .hero-title {
-    font-size: clamp(3.5rem, 9vw, 7.5rem);
-    line-height: 1.02;
-    margin-bottom: 1.25rem;
+    font-size: clamp(3rem, 6.5vw, 5.2rem);
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.1em;
     color: var(--text-main);
     -webkit-text-fill-color: unset;
     background: none;
     text-shadow:
-        0 2px 24px rgba(0, 0, 0, 0.18),
-        0 0 100px rgba(0, 0, 0, 0.05);
-    letter-spacing: -0.03em;
+        0 2px 24px rgba(0, 0, 0, 0.12),
+        0 0 100px rgba(0, 0, 0, 0.03);
+    letter-spacing: -0.02em;
     font-weight: 700;
 }
 
 /* ─── Hero Tagline ─── */
 .hero-tagline {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     color: var(--text-muted);
-    letter-spacing: 0.06em;
+    letter-spacing: 0.04em;
     font-style: italic;
-    opacity: 0.7;
+    opacity: 0.8;
     font-weight: 300;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+}
+
+/* ─── Hero Buttons ─── */
+.hero-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.hero-buttons .btn {
+    padding: 0.85rem 1.85rem;
+    transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 /* ─── Scroll Indicator ─── */
@@ -390,16 +420,30 @@
 @media (max-width: 768px) {
     .hero-section {
         min-height: 85vh;
-        padding: 0 1rem;
+        padding: 6rem 1rem 3rem;
+        text-align: center;
+        justify-content: center;
     }
 
     .hero-content {
         max-width: 100%;
         padding: 2rem 1rem;
+        align-items: center;
+        margin: 0 auto;
     }
 
     .hero-title {
-        font-size: clamp(2.5rem, 10vw, 4.5rem);
+        font-size: clamp(2.5rem, 9vw, 4.2rem);
+    }
+
+    .hero-tagline {
+        margin-bottom: 2rem;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
     }
 
     .philosophy-columns {
@@ -435,7 +479,7 @@
     }
 
     .hero-title {
-        font-size: clamp(2rem, 10vw, 3.5rem);
+        font-size: clamp(2rem, 10vw, 3.2rem);
     }
 
     .hero-eyebrow {
@@ -444,7 +488,7 @@
     }
 
     .hero-tagline {
-        font-size: 0.95rem;
+        font-size: 0.98rem;
     }
 
     .ritual-card {

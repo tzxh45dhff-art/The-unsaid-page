@@ -13,7 +13,8 @@ const TREE_SRCS = {
 
 /* ═══════════════════════════════════════════════════════
  * Vertex shader — wind displacement
- * Height² scaling: tips sway a lot, trunk barely moves
+ * Scale-invariant: uses normalized texture coordinates (uv)
+ * Height² scaling: tips sway a lot, trunk remains firmly grounded
  * ═══════════════════════════════════════════════════════ */
 const vertexShader = `
     uniform float uTime;
@@ -23,11 +24,11 @@ const vertexShader = `
     void main() {
         vUv = uv;
         vec3 pos = position;
-        float h = clamp((pos.y + 1.0) / 2.0, 0.0, 1.0);
+        float h = uv.y;
 
-        float wind = sin(uTime * 0.8 + pos.y * 2.5) * 0.45
-                   + sin(uTime * 1.3 + pos.y * 4.0) * 0.25
-                   + sin(uTime * 0.3 + pos.x * 3.0) * 0.15;
+        float wind = sin(uTime * 0.8 + uv.y * 6.0) * 0.45
+                   + sin(uTime * 1.3 + uv.y * 9.0) * 0.25
+                   + sin(uTime * 0.3 + uv.x * 6.0) * 0.15;
 
         pos.x += wind * h * h * uWindStrength;
         pos.y -= abs(wind) * h * uWindStrength * 0.04;
@@ -38,12 +39,8 @@ const vertexShader = `
 
 /* ═══════════════════════════════════════════════════════
  * Fragment shader — smart black-background removal
- *
- * Problem: old shader used luminance, which cut dark bark.
- * Fix: check if the pixel is "near pure black" by testing
- * that ALL channels are below a threshold AND total color
- * saturation is very low. Dark brown bark has higher R
- * channel than pure black, so it's preserved.
+ * Border fade: replaces the oval vignette with a subtle 4% boundary
+ * feathering to let tree branches expand fully to the left.
  * ═══════════════════════════════════════════════════════ */
 const fragmentShader = `
     uniform sampler2D uTexture;
@@ -61,27 +58,50 @@ const fragmentShader = `
         // Bark (even dark) has at least some channel > 0.10
         float alpha = smoothstep(0.03, 0.10, maxC) * uOpacity * uFadeIn;
 
-        // Organic edge dissolution — very wide, radial fade
-        // Aggressively dissolves edges so no rectangle is ever visible
-        vec2 center = vUv - 0.5;
-        // Stretch horizontally more (1.8x) to kill side edges; vertical lighter (0.9x)
-        float edgeDist = length(center * vec2(1.8, 0.9));
-        // Start fading very early (0.20) and be fully gone by 0.52
-        float edgeFade = 1.0 - smoothstep(0.20, 0.52, edgeDist);
+        // Soft border fade — only fades out the outer 4% of the texture quad to prevent hard borders
+        float borderFadeX = smoothstep(0.0, 0.04, vUv.x) * (1.0 - smoothstep(0.96, 1.0, vUv.x));
+        float borderFadeY = smoothstep(0.0, 0.04, vUv.y) * (1.0 - smoothstep(0.96, 1.0, vUv.y));
+        float edgeFade = borderFadeX * borderFadeY;
 
         gl_FragColor = vec4(tex.rgb, alpha * edgeFade);
     }
 `
 
 /* ═══════════════════════════════════════════════════════
- * TreePlane — textured quad with wind shader
+ * TreePlane — textured quad with scale-invariant wind shader
  * ═══════════════════════════════════════════════════════ */
 function TreePlane({ season }) {
     const meshRef = useRef()
     const matRef  = useRef()
+    const { viewport } = useThree()
 
     const texture = useLoader(THREE.TextureLoader, TREE_SRCS[season])
     texture.colorSpace = THREE.SRGBColorSpace
+
+    // Check if the viewport width is in mobile/portrait range
+    const isMobile = viewport.width < 2.8
+
+    // Scale the tree plane to fit beautifully within the viewport height
+    const treeScale = useMemo(() => {
+        return isMobile ? viewport.height * 1.25 : viewport.height * 1.55 // Majestic scale for leftward expansion
+    }, [isMobile, viewport.height])
+
+    // Maintain aspect ratio of texture (4.0 / 4.8 = 0.833)
+    const treeWidth = useMemo(() => {
+        return treeScale * 0.833
+    }, [treeScale])
+
+    // Calculate responsive position offsets
+    const xShift = useMemo(() => {
+        if (isMobile) return 0
+        // Stick the right edge of the tree plane to the right edge of the viewport
+        // with a tiny organic offset (0.12) to merge it beautifully with the right border
+        return (viewport.width - treeWidth) / 2 + 0.12
+    }, [isMobile, viewport.width, treeWidth])
+
+    const yShift = useMemo(() => {
+        return isMobile ? -viewport.height * 0.08 : -viewport.height * 0.20 // Ground the large trunk deeply
+    }, [isMobile, viewport.height])
 
     const windStrength = useMemo(() => {
         const map = { spring: 0.06, summer: 0.04, autumn: 0.09, winter: 0.03 }
@@ -92,7 +112,7 @@ function TreePlane({ season }) {
         uTexture:      { value: texture },
         uTime:         { value: 0 },
         uWindStrength: { value: windStrength },
-        uOpacity:      { value: 0.85 },
+        uOpacity:      { value: 1.0 }, // Unlock full color vibrancy
         uFadeIn:       { value: 0 },
     }), [texture, windStrength])
 
@@ -116,8 +136,8 @@ function TreePlane({ season }) {
     })
 
     return (
-        <mesh ref={meshRef} position={[0, -0.35, 0]}>
-            <planeGeometry args={[4.0, 4.8, 48, 64]} />
+        <mesh ref={meshRef} position={[xShift, yShift, 0]}>
+            <planeGeometry args={[treeWidth, treeScale, 48, 64]} />
             <shaderMaterial
                 ref={matRef}
                 vertexShader={vertexShader}
@@ -270,14 +290,31 @@ function Scene() {
 }
 
 /* ═══════════════════════════════════════════════════════
- * HeroTree — transparent WebGL canvas
+ * HeroTree — transparent WebGL canvas with responsive layout
  * ═══════════════════════════════════════════════════════ */
 function HeroTree() {
     const { config } = useSeason()
 
+    const responsiveSkyTint = useMemo(() => {
+        // Shift the radial gradient glow to the right (76% 50%) on desktop to align behind the tree
+        if (typeof window !== 'undefined' && window.innerWidth > 768) {
+            return config.skyTint.replace('50% 80%', '76% 50%')
+        }
+        return config.skyTint
+    }, [config.skyTint])
+
+    const responsiveGroundGlow = useMemo(() => {
+        // Shift ground glow to the right (76% 100%) and boost intensity slightly on desktop
+        if (typeof window !== 'undefined' && window.innerWidth > 768) {
+            const boostedColor = config.groundGlow.replace('0.1)', '0.18)').replace('0.12)', '0.20)')
+            return `radial-gradient(ellipse at 76% 100%, ${boostedColor} 0%, transparent 60%)`
+        }
+        return `radial-gradient(ellipse at 50% 100%, ${config.groundGlow} 0%, transparent 55%)`
+    }, [config.groundGlow])
+
     return (
         <div className="hero-tree-wrapper" aria-hidden="true">
-            <div className="hero-tree-sky" style={{ background: config.skyTint }} />
+            <div className="hero-tree-sky" style={{ background: responsiveSkyTint }} />
             <Canvas
                 className="hero-tree-canvas"
                 gl={{ alpha: true, antialias: true, premultipliedAlpha: false }}
@@ -289,7 +326,7 @@ function HeroTree() {
             </Canvas>
             <div
                 className="hero-tree-ground-glow"
-                style={{ background: `radial-gradient(ellipse at 50% 100%, ${config.groundGlow} 0%, transparent 55%)` }}
+                style={{ background: responsiveGroundGlow }}
             />
         </div>
     )
