@@ -144,7 +144,7 @@
  * Philosophy Section — Read · Feel · Write
  * ═══════════════════════════════════════════════════════ */
 .philosophy-section {
-    padding: 5rem 2rem;
+    padding: 5rem 0;
     border-top: 1px solid rgba(201, 149, 107, 0.08);
     border-bottom: 1px solid rgba(201, 149, 107, 0.08);
 }
@@ -205,7 +205,7 @@
  * Editorial Quote
  * ═══════════════════════════════════════════════════════ */
 .quote-section {
-    padding: 5rem 2rem 4rem;
+    padding: 5rem 0 4rem;
 }
 
 .editorial-quote {
@@ -251,12 +251,14 @@
  * Daily Ritual / Prompt
  * ═══════════════════════════════════════════════════════ */
 .daily-ritual {
-    padding: 1rem 2rem 3rem;
+    padding-top: 1rem;
+    padding-bottom: 3rem;
 }
 
 @media (max-width: 768px) {
     .daily-ritual {
-        padding: 1rem 1rem 2rem;
+        padding-top: 1rem;
+        padding-bottom: 2rem;
     }
 }
 
@@ -308,7 +310,8 @@
  * Featured Section
  * ═══════════════════════════════════════════════════════ */
 .featured-section {
-    padding: 5rem 2rem 6rem;
+    padding-top: 5rem;
+    padding-bottom: 6rem;
 }
 
 .section-header {
@@ -380,7 +383,7 @@
  * CTA Section
  * ═══════════════════════════════════════════════════════ */
 .cta-section {
-    padding: 6rem 2rem;
+    padding: 6rem 0;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -420,14 +423,14 @@
 @media (max-width: 768px) {
     .hero-section {
         min-height: 85vh;
-        padding: 6rem 1rem 3rem;
+        padding: 6rem 0 3rem;
         text-align: center;
         justify-content: center;
     }
 
     .hero-content {
         max-width: 100%;
-        padding: 2rem 1rem;
+        padding: 2rem 0;
         align-items: center;
         margin: 0 auto;
     }
