@@ -45,7 +45,12 @@ async def list_posts(
 ):
     sql = """SELECT p.id, p.title, p.slug, p.type, p.excerpt, p.cover_image_url,
                     p.reading_time_label, p.snap_count, p.published_at, p.moods, p.tags, p.is_anonymous,
-                    u.username AS author_name, u.display_name AS author_display
+                    CASE WHEN p.is_anonymous THEN NULL
+                         ELSE COALESCE(p.author_name, u.display_name, u.username)
+                    END AS author_name,
+                    CASE WHEN p.is_anonymous THEN NULL
+                         ELSE COALESCE(p.author_name, u.display_name, u.username)
+                    END AS author_display
              FROM posts p LEFT JOIN users u ON p.author_id = u.id 
              WHERE p.status = 'published' AND p.visibility = 'public'"""
     params: list = []
@@ -77,7 +82,10 @@ async def list_posts(
 @router.get("/{slug}")
 async def get_post(slug: str, user: Optional[dict] = Depends(get_optional_user)):
     row = await database.fetchrow(
-        """SELECT p.*, u.username AS author_name, u.display_name AS author_display
+        """SELECT p.*,
+                  CASE WHEN p.is_anonymous THEN NULL
+                       ELSE COALESCE(p.author_name, u.display_name, u.username)
+                  END AS author_display
            FROM posts p LEFT JOIN users u ON p.author_id = u.id
            WHERE p.slug = $1 AND p.status = 'published'""",
         slug,
@@ -98,6 +106,8 @@ class CreatePostBody(BaseModel):
     tags: list[str] = []
     is_anonymous: bool = False
     visibility: str = "public"
+    author_name: Optional[str] = None  # Custom pen name from the form
+    author_email: Optional[str] = None  # Guest/anonymous email (not stored)
 
 
 @router.post("", status_code=201)
@@ -120,19 +130,39 @@ async def create_post(body: CreatePostBody, user: Optional[dict] = Depends(get_o
     normalized_moods = list(body.moods[:5]) if body.moods else []
     normalized_tags = list(body.tags[:8]) if body.tags else []
 
+    # Determine the display name for this post:
+    # 1. Use the custom pen name from the form if provided
+    # 2. Fall back to the user's display_name or username from the DB
+    # 3. Fall back to 'Anonymous'
+    if body.author_name and body.author_name.strip():
+        pen_name = body.author_name.strip()
+    elif user:
+        # Fetch the full user record since JWT only has id+email
+        db_user = await database.fetchrow(
+            "SELECT display_name, username FROM users WHERE id = $1", user["id"]
+        )
+        pen_name = (db_user or {}).get("display_name") or (db_user or {}).get("username") or "Anonymous"
+    else:
+        pen_name = "Anonymous"
+
     row = await database.fetchrow(
         """INSERT INTO posts (author_id, title, slug, body_markdown, type, excerpt,
                               cover_image_url, reading_time_sec, reading_time_label,
                               status, moods, tags, is_anonymous, visibility,
-                              published_at)
+                              author_name, published_at)
            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14,
-                   CASE WHEN $10 = 'published' THEN now() ELSE NULL END)
+                   $15, CASE WHEN $10 = 'published' THEN now() ELSE NULL END)
            RETURNING *""",
         author_id, body.title, slug, body.body_markdown, body.type,
         body.excerpt, final_cover, reading_time_sec, reading_time_label,
         final_status, normalized_moods, normalized_tags,
-        body.is_anonymous, final_visibility,
+        body.is_anonymous, final_visibility, pen_name,
     )
+
+    # Attach the resolved pen_name so the frontend can use it immediately
+    result = dict(row)
+    result["author_display"] = pen_name if not body.is_anonymous else None
+    result["author_name"] = pen_name if not body.is_anonymous else None
 
     # Award 10 points for publishing
     if user and final_status == "published":
@@ -145,7 +175,7 @@ async def create_post(body: CreatePostBody, user: Optional[dict] = Depends(get_o
             user["id"],
         )
 
-    return row
+    return result
 
 
 # ── Get my works ──

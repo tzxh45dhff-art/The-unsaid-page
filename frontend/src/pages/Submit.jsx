@@ -52,9 +52,14 @@ export default function Submit() {
     const getSavedDraft = () => {
         try {
             const saved = localStorage.getItem('unsaid-draft');
-            if (saved) return JSON.parse(saved);
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                // Always reset anonymous — we derive it from the name field now
+                parsed.anonymous = false;
+                return parsed;
+            }
         } catch { /* corrupted draft, ignore */ }
-        return { name: '', email: '', title: '', type: 'poem', content: '', moodsInput: '', tagsInput: '', anonymous: false };
+        return { name: '', email: '', title: '', type: 'poem', content: '', moodsInput: '', tagsInput: '' };
     };
 
     const { register, handleSubmit, watch, formState: { errors, isSubmitting }, reset, setValue } = useForm({
@@ -64,7 +69,7 @@ export default function Submit() {
     const [submitted, setSubmitted] = useState(false);
     const [voidTriggered, setVoidTriggered] = useState(false);
     const [serverError, setServerError] = useState('');
-    const { isAuthenticated } = useUser();
+    const { isAuthenticated, user } = useUser();
     
     const watchedContent = watch('content') || '';
     const watchedValues = watch();
@@ -120,12 +125,24 @@ export default function Submit() {
             .catch(() => {});
     }, [isAuthenticated, setValue]);
 
+    // When user signs in, pre-fill pen name with their display name if name field is empty
+    useEffect(() => {
+        if (isAuthenticated && user) {
+            const currentName = watch('name');
+            if (!currentName || currentName.trim() === '') {
+                setValue('name', user.display_name || user.username || '');
+            }
+        }
+    }, [isAuthenticated, user, setValue]);
+
     const onSubmit = async (data) => {
         try {
             setServerError('');
             const moods = (data.moodsInput || '').split(',').map((m) => m.trim()).filter(Boolean);
             const tags = (data.tagsInput || '').split(',').map((t) => t.trim().toLowerCase()).filter(Boolean);
-            await submitPost({ ...data, moods, tags, anonymous: Boolean(data.anonymous) });
+            // Anonymous is determined by whether a name was entered — not a checkbox
+            const isAnonymous = !data.name || !data.name.trim();
+            await submitPost({ ...data, moods, tags, anonymous: isAnonymous, isAuthenticated });
             localStorage.removeItem('unsaid-draft');
             if (isAuthenticated) await clearMyDraft().catch(() => {});
             setVoidTriggered(true);
@@ -197,9 +214,9 @@ export default function Submit() {
                     onSubmit={handleSubmit(onSubmit)}
                     noValidate
                 >
-                    <div className="form-group-row">
+                    <div className="form-group-row" style={isAuthenticated ? { gridTemplateColumns: '1fr' } : {}}>
                         <div className="form-group">
-                            <label htmlFor="name">Pen Name (or leave blank for Anonymous)</label>
+                            <label htmlFor="name">Pen Name <span style={{ color: 'var(--text-muted)', fontWeight: 400, textTransform: 'none', letterSpacing: 'normal' }}>(leave blank to publish anonymously)</span></label>
                             <input
                                 type="text"
                                 id="name"
@@ -208,13 +225,14 @@ export default function Submit() {
                                 placeholder="Jane Doe"
                             />
                         </div>
+                        {!isAuthenticated && (
                         <div className="form-group">
                             <label htmlFor="email">Email <span className="required">*</span></label>
                             <input
                                 type="email"
                                 id="email"
                                 {...register('email', { 
-                                    required: 'Email is required',
+                                    required: !isAuthenticated ? 'Email is required' : false,
                                     pattern: {
                                         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                                         message: "Invalid email address"
@@ -225,6 +243,7 @@ export default function Submit() {
                             />
                             {errors.email && <span className="error-msg">{errors.email.message}</span>}
                         </div>
+                        )}
                     </div>
 
                     <div className="form-group-row">
@@ -269,12 +288,7 @@ export default function Submit() {
                     <input type="hidden" {...register('moodsInput')} />
                     <input type="hidden" {...register('tagsInput')} />
 
-                    <div className="form-group" style={{ marginTop: '-0.5rem' }}>
-                        <label className="radio-label" style={{ textTransform: 'none', letterSpacing: 'normal' }}>
-                            <input type="checkbox" {...register('anonymous')} style={{ marginRight: '0.5rem' }} />
-                            Publish as anonymous
-                        </label>
-                    </div>
+                    {/* Anonymous is derived from leaving the pen name blank — no checkbox needed */}
 
                     <div className="content-preview-split">
                         <div className="form-group">

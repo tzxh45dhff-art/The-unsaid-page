@@ -571,7 +571,7 @@ export const fetchPostById = async (id) => {
 
 // ── Submit post — real API (auth required) ──
 export const submitPost = async (postData) => {
-    const { data } = await api.post('/posts', {
+    const payload = {
         title: postData.title,
         body_markdown: postData.content,
         type: postData.type || 'poem',
@@ -579,6 +579,15 @@ export const submitPost = async (postData) => {
         moods: postData.moods || [],
         tags: postData.tags || [],
         is_anonymous: postData.anonymous || false,
-    });
+    };
+    // Pass pen name if provided (for signed-in users it overrides display_name)
+    if (postData.name && postData.name.trim()) {
+        payload.author_name = postData.name.trim();
+    }
+    // Pass email only for anonymous/guest submissions
+    if (!postData.isAuthenticated && postData.email) {
+        payload.author_email = postData.email.trim();
+    }
+    const { data } = await api.post('/posts', payload);
     return data;
 };

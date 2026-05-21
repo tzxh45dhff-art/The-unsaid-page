@@ -28,7 +28,7 @@ export default function Admin() {
     };
 
     return (
-        <div className="container" style={{ padding: '3rem 2rem', minHeight: '80vh' }}>
+        <div className="container" style={{ padding: 'var(--nav-height) 2rem 4rem', minHeight: '80vh' }}>
             <h1>Moderation Queue</h1>
             {error && <p style={{ color: 'var(--accent-color)', margin: '0.75rem 0' }}>{error}</p>}
 

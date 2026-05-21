@@ -159,7 +159,7 @@ Respond ONLY with a JSON object with two keys: "title" and "content". No markdow
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="container"
-            style={{ maxWidth: '800px', padding: '4rem 2rem' }}
+            style={{ maxWidth: '800px', padding: 'var(--nav-height) 2rem 4rem' }}
         >
             <header style={{ marginBottom: '3rem', textAlign: 'center' }}>
                 <h1 style={{ fontSize: '3rem', marginBottom: '1rem', color: 'var(--accent-color)' }}>AI Writer</h1>
