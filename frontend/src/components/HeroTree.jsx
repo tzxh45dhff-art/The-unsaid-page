@@ -100,7 +100,7 @@ function TreePlane({ season }) {
     }, [isMobile, viewport.width, treeWidth])
 
     const yShift = useMemo(() => {
-        return isMobile ? -viewport.height * 0.08 : -viewport.height * 0.20 // Ground the large trunk deeply
+        return isMobile ? -viewport.height * 0.15 : -viewport.height * 0.20 // Ground the large trunk deeply
     }, [isMobile, viewport.height])
 
     const windStrength = useMemo(() => {

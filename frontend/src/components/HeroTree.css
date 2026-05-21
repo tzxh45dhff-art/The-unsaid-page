@@ -104,6 +104,10 @@
         filter: blur(1.2px) saturate(1.1); /* Dreamy blur to guarantee legibility */
     }
 
+    .hero-tree-ground-glow {
+        height: 20%;
+    }
+
     .hero-tree-wrapper::before {
         background:
             radial-gradient(ellipse 90% 55% at 50% 35%,

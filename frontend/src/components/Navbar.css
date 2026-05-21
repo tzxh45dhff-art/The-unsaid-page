@@ -249,7 +249,7 @@ body.dark .pill-points {
     top: calc(100% + 0.75rem);
     left: 50%;
     transform: translateX(-50%);
-    width: max(320px, min(420px, 90vw));
+    width: clamp(280px, 90vw, 420px);
     background: rgba(255, 252, 247, 0.82);
     backdrop-filter: blur(30px) saturate(1.6);
     -webkit-backdrop-filter: blur(30px) saturate(1.6);
