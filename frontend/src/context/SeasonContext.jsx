@@ -14,7 +14,7 @@ const SeasonContext = createContext()
  */
 const SEASON_CONFIG = {
     spring: {
-        label: '🌸 Spring',
+        label: '🌸 Cherry Blossom',
         canopyColors: ['#f5c6d0', '#e8a5b3', '#f0d4db'],
         particleColors: ['#f8b4c8', '#f5d0db', '#fce4ec', '#f48fb1'],
         particleShape: 'petal',
@@ -31,15 +31,6 @@ const SEASON_CONFIG = {
         trunkColor: '#5d4037',
         groundGlow: 'rgba(129,199,132,0.1)',
     },
-    autumn: {
-        label: '🍂 Autumn',
-        canopyColors: ['#e6a23c', '#d4763a', '#edc66e'],
-        particleColors: ['#e6a23c', '#d4763a', '#c0653a', '#edc66e', '#b71c1c'],
-        particleShape: 'leaf',
-        skyTint: 'radial-gradient(ellipse at 50% 80%, rgba(230,162,60,0.18) 0%, transparent 70%)',
-        trunkColor: '#4e342e',
-        groundGlow: 'rgba(230,162,60,0.1)',
-    },
     winter: {
         label: '❄️ Winter',
         canopyColors: ['#b0bec5', '#90a4ae', '#cfd8dc'],
@@ -51,12 +42,17 @@ const SEASON_CONFIG = {
     },
 }
 
-const SEASON_ORDER = ['spring', 'summer', 'autumn', 'winter']
+const SEASON_ORDER = ['spring', 'summer', 'winter']
 
 export const SeasonProvider = ({ children }) => {
     const [season, setSeason] = useState(() => {
         const saved = localStorage.getItem('unsaid-season')
-        return saved && SEASON_CONFIG[saved] ? saved : 'autumn'
+        // Migrate away from removed 'autumn' season
+        if (saved === 'autumn') {
+            localStorage.setItem('unsaid-season', 'spring')
+            return 'spring'
+        }
+        return saved && SEASON_CONFIG[saved] ? saved : 'spring'
     })
 
     const cycleSeason = () => {

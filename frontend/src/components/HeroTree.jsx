@@ -7,7 +7,6 @@ import './HeroTree.css'
 const TREE_SRCS = {
     spring: '/trees/spring.png',
     summer: '/trees/summer.png',
-    autumn: '/trees/autumn.png',
     winter: '/trees/winter.png',
 }
 
@@ -104,7 +103,7 @@ function TreePlane({ season }) {
     }, [isMobile, viewport.height])
 
     const windStrength = useMemo(() => {
-        const map = { spring: 0.06, summer: 0.04, autumn: 0.09, winter: 0.03 }
+        const map = { spring: 0.06, summer: 0.04, winter: 0.03 }
         return map[season] || 0.05
     }, [season])
 

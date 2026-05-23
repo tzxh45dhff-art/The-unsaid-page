@@ -1,24 +1,16 @@
-import { createContext, useState, useEffect, useContext } from 'react';
+import { createContext, useEffect, useContext } from 'react';
 
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-    const [theme, setTheme] = useState(() => {
-        const savedTheme = localStorage.getItem('unsaid-theme');
-        return savedTheme || 'light';
-    });
-
+    // Dark is the only theme — apply once on mount and never change
     useEffect(() => {
-        localStorage.setItem('unsaid-theme', theme);
-        document.body.className = theme; // Apply theme to body
-    }, [theme]);
-
-    const toggleTheme = (newTheme) => {
-        setTheme(newTheme);
-    };
+        document.body.classList.add('dark');
+        localStorage.setItem('unsaid-theme', 'dark');
+    }, []);
 
     return (
-        <ThemeContext.Provider value={{ theme, toggleTheme }}>
+        <ThemeContext.Provider value={{ theme: 'dark', toggleTheme: () => {} }}>
             {children}
         </ThemeContext.Provider>
     );

@@ -1,6 +1,5 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
-import { useEffect } from 'react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
@@ -16,19 +15,10 @@ import Admin from './pages/Admin'
 import MyWorks from './pages/MyWorks'
 import AIWriter from './pages/AIWriter'
 import PenPals from './pages/PenPals'
-import useTimeOfDay from './hooks/useTimeOfDay'
 import DustMotes from './components/DustMotes'
 
 function App() {
   const location = useLocation()
-  const timeOfDay = useTimeOfDay()
-
-  // Apply time-reactive lighting class to body
-  useEffect(() => {
-    const classes = ['time-morning', 'time-afternoon', 'time-golden', 'time-evening', 'time-night']
-    classes.forEach(c => document.body.classList.remove(c))
-    document.body.classList.add(`time-${timeOfDay}`)
-  }, [timeOfDay])
 
   return (
     <>

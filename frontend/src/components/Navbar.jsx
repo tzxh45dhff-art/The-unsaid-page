@@ -1,9 +1,8 @@
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import './Navbar.css'
-import { Menu, X, Sun, Moon, BookOpen, LogOut, User, Headphones } from 'lucide-react'
+import { Menu, X, BookOpen, LogOut, User, Headphones } from 'lucide-react'
 import { useState, useEffect } from 'react'
-import { useTheme } from '../context/ThemeContext'
 import { useUser } from '../context/UserContext'
 import { useSeason } from '../context/SeasonContext'
 import AmbientPlayer from './AmbientPlayer'
@@ -13,7 +12,6 @@ export default function Navbar() {
     const [ambientOpen, setAmbientOpen] = useState(false)
     const [scrolled, setScrolled] = useState(false)
     const location = useLocation()
-    const { theme, toggleTheme } = useTheme()
     const { points, user, isAuthenticated, logout } = useUser()
     const { season, cycleSeason, config: seasonConfig } = useSeason()
 
@@ -68,12 +66,6 @@ export default function Navbar() {
                         {seasonConfig.label.split(' ')[0]}
                     </button>
 
-                    {/* Theme toggles (desktop) */}
-                    <div className="pill-themes desktop-only">
-                        <button onClick={() => toggleTheme('light')} className={`pill-btn ${theme === 'light' ? 'active' : ''}`} aria-label="Light"><Sun size={15} /></button>
-                        <button onClick={() => toggleTheme('dark')} className={`pill-btn ${theme === 'dark' ? 'active' : ''}`} aria-label="Dark"><Moon size={15} /></button>
-                        <button onClick={() => toggleTheme('sepia')} className={`pill-btn ${theme === 'sepia' ? 'active' : ''}`} aria-label="Sepia"><BookOpen size={15} /></button>
-                    </div>
 
                     {/* Ambient sound */}
                     <button
@@ -144,9 +136,6 @@ export default function Navbar() {
                             <span className="pill-points" title="Sanctuary Points">{points} pts</span>
 
                             <div className="dropdown-themes">
-                                <button onClick={() => toggleTheme('light')} className={`pill-btn ${theme === 'light' ? 'active' : ''}`} aria-label="Light"><Sun size={16} /></button>
-                                <button onClick={() => toggleTheme('dark')} className={`pill-btn ${theme === 'dark' ? 'active' : ''}`} aria-label="Dark"><Moon size={16} /></button>
-                                <button onClick={() => toggleTheme('sepia')} className={`pill-btn ${theme === 'sepia' ? 'active' : ''}`} aria-label="Sepia"><BookOpen size={16} /></button>
                                 <button onClick={() => setAmbientOpen(o => !o)} className={`pill-btn ${ambientOpen ? 'active' : ''}`} aria-label="Ambient Sounds"><Headphones size={16} /></button>
                             </div>
 

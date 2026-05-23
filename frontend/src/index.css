@@ -1,24 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
 
 :root {
-  /* ─── Warm Beige Glassmorphism Palette ─── */
-  --bg-color: #f5efe6;
-  --bg-gradient: linear-gradient(135deg, #f5efe6 0%, #e8dfd3 40%, #f0e6d8 70%, #faf6f0 100%);
-  --text-main: #2c2418;
-  --text-muted: #8a7b6b;
-  --accent-color: #c9956b;
-  --accent-hover: #b07d55;
-  --accent-glow: rgba(201, 149, 107, 0.35);
+  /* ─── Dark Palette ─── */
+  --bg-color: #1a1714;
+  --bg-gradient: linear-gradient(135deg, #1a1714 0%, #24201b 40%, #1e1b16 70%, #22201c 100%);
+  --text-main: #f0e8dc;
+  --text-muted: #9a8d7d;
+  --accent-color: #d4a76a;
+  --accent-hover: #e0b87a;
+  --accent-glow: rgba(212, 167, 106, 0.25);
 
   /* Glass tokens */
-  --glass-bg: rgba(255, 252, 247, 0.55);
-  --glass-border: 1px solid rgba(255, 255, 255, 0.45);
-  --glass-shadow: 0 8px 32px rgba(80, 60, 30, 0.08);
-  --glass-shadow-hover: 0 16px 48px rgba(80, 60, 30, 0.14);
+  --glass-bg: rgba(35, 30, 25, 0.6);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  --glass-shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.3);
   --glass-blur: blur(18px);
 
-  --card-bg: rgba(255, 252, 247, 0.6);
-  --nav-bg: rgba(245, 239, 230, 0.72);
+  --card-bg: rgba(40, 35, 28, 0.65);
+  --nav-bg: rgba(26, 23, 20, 0.8);
 
   /* warm accents */
   --warm-gold: #d4a76a;
@@ -34,40 +34,9 @@
   --nav-height: 7rem;
 }
 
+/* dark class kept for specificity compatibility with existing component styles */
 body.dark {
-  --bg-color: #1a1714;
-  --bg-gradient: linear-gradient(135deg, #1a1714 0%, #24201b 40%, #1e1b16 70%, #22201c 100%);
-  --text-main: #f0e8dc;
-  --text-muted: #9a8d7d;
-  --accent-color: #d4a76a;
-  --accent-hover: #e0b87a;
-  --accent-glow: rgba(212, 167, 106, 0.25);
-
-  --glass-bg: rgba(35, 30, 25, 0.6);
-  --glass-border: 1px solid rgba(255, 255, 255, 0.08);
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  --glass-shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.3);
-
-  --card-bg: rgba(40, 35, 28, 0.65);
-  --nav-bg: rgba(26, 23, 20, 0.8);
-}
-
-body.sepia {
-  --bg-color: #f7ecd8;
-  --bg-gradient: linear-gradient(135deg, #f7ecd8 0%, #eddcc4 40%, #f3e4cc 70%, #faf2e4 100%);
-  --text-main: #3d2e1c;
-  --text-muted: #7a6a55;
-  --accent-color: #b35900;
-  --accent-hover: #994d00;
-  --accent-glow: rgba(179, 89, 0, 0.25);
-
-  --glass-bg: rgba(247, 236, 216, 0.6);
-  --glass-border: 1px solid rgba(255, 255, 255, 0.35);
-  --glass-shadow: 0 8px 32px rgba(80, 50, 20, 0.1);
-  --glass-shadow-hover: 0 16px 48px rgba(80, 50, 20, 0.16);
-
-  --card-bg: rgba(241, 224, 194, 0.6);
-  --nav-bg: rgba(247, 236, 216, 0.75);
+  /* inherits :root dark palette — no overrides needed */
 }
 
 * {
@@ -277,72 +246,8 @@ body.reader-focus-mode .article-body .hl-line:hover {
   text-shadow: 0 0 32px rgba(212, 167, 106, 0.12);
 }
 
-/* Dark theme: slightly different vignette tint */
-body.dark.reader-focus-mode::after {
-  background: radial-gradient(
-    ellipse at 50% 45%,
-    transparent 20%,
-    rgba(5, 4, 3, 0.5) 55%,
-    rgba(5, 4, 3, 0.95) 100%
-  );
-}
 
-/* ── Time-Reactive Lighting ─────────────────────── */
-body.time-morning {
-  --bg-gradient: linear-gradient(135deg, #fdf6ee 0%, #fce8d5 40%, #fdf0e0 70%, #fffaf4 100%);
-}
 
-/* body.time-afternoon uses default palette — no override needed */
-
-body.time-golden {
-  --bg-gradient: linear-gradient(135deg, #f8ead5 0%, #f0d8b8 40%, #f5e2c8 70%, #faf3e6 100%);
-}
-
-body.time-evening {
-  --bg-gradient: linear-gradient(135deg, #e8ddd0 0%, #d8cbbf 40%, #ddd0c2 70%, #ece5da 100%);
-}
-
-body.time-night {
-  --bg-gradient: linear-gradient(135deg, #2a2520 0%, #1e1b17 40%, #252220 70%, #2e2a26 100%);
-  --text-main: #e8dcc8;
-  --text-muted: #968a78;
-  --glass-bg: rgba(40, 36, 30, 0.6);
-  --glass-border: 1px solid rgba(255, 255, 255, 0.06);
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  --card-bg: rgba(45, 40, 32, 0.6);
-  --nav-bg: rgba(30, 27, 23, 0.8);
-}
-
-/* Don't override when explicit theme is set */
-body.dark.time-morning,
-body.dark.time-afternoon,
-body.dark.time-golden,
-body.dark.time-evening,
-body.dark.time-night {
-  --bg-gradient: linear-gradient(135deg, #1a1714 0%, #24201b 40%, #1e1b16 70%, #22201c 100%);
-}
-
-body.sepia.time-morning,
-body.sepia.time-afternoon,
-body.sepia.time-golden,
-body.sepia.time-evening,
-body.sepia.time-night {
-  --bg-gradient: linear-gradient(135deg, #f7ecd8 0%, #eddcc4 40%, #f3e4cc 70%, #faf2e4 100%);
-}
-
-/* ── Theme Text Readability ─────────────────────── */
-/* Ensure all text elements have proper contrast in every theme */
-body.dark p, body.dark span, body.dark li, body.dark td {
-  color: var(--text-main);
-}
-body.dark .card-content p { color: var(--text-muted); }
-body.dark .card-content h3 { color: var(--text-main); }
-body.dark .brutal-card { color: var(--text-main); }
-body.dark select, body.dark option { color: var(--text-main); background: var(--bg-color); }
-body.sepia select, body.sepia option { color: var(--text-main); background: var(--bg-color); }
-body.dark .ritual-footer span { color: var(--text-muted); }
-body.dark .hero-eyebrow { color: var(--accent-color); }
-body.dark .section-header h2 { color: var(--text-main); }
 
 /* ── Select Element Styling ─────────────────────── */
 select.brutal-input {
