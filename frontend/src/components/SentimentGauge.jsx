@@ -102,7 +102,7 @@ async function analyzeWithGroq(text) {
     }
 }
 
-function SentimentGauge({ text = '' }) {
+function SentimentGauge({ text = '', onMoodDetected }) {
     const [mood, setMood] = useState('neutral')
     const [groqMood, setGroqMood] = useState(null)
     const groqTimer = useRef(null)
@@ -130,6 +130,13 @@ function SentimentGauge({ text = '' }) {
 
         return () => clearTimeout(groqTimer.current)
     }, [text])
+
+    // Notify parent of mood changes
+    useEffect(() => {
+        if (onMoodDetected) {
+            onMoodDetected(mood)
+        }
+    }, [mood, onMoodDetected])
 
     const config = MOOD_CONFIG[mood] || MOOD_CONFIG.neutral
 

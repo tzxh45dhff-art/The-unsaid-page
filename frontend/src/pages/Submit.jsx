@@ -70,6 +70,7 @@ export default function Submit() {
     const [voidTriggered, setVoidTriggered] = useState(false);
     const [serverError, setServerError] = useState('');
     const { isAuthenticated, user } = useUser();
+    const [detectedMood, setDetectedMood] = useState('neutral');
     
     const watchedContent = watch('content') || '';
     const watchedValues = watch();
@@ -284,9 +285,59 @@ export default function Submit() {
                         </div>
                     </div>
 
-                    {/* Hidden fields — auto-populated by AI sentiment analysis */}
-                    <input type="hidden" {...register('moodsInput')} />
-                    <input type="hidden" {...register('tagsInput')} />
+                    {/* Visual Mood Categories & Tags Editor */}
+                    <input type="hidden" {...register('moodsInput', { required: 'At least one mood is required' })} />
+
+                    <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+                        <label>Select Mood Categories <span className="required">*</span> <span style={{ color: 'var(--text-muted)', fontWeight: 400, textTransform: 'none', letterSpacing: 'normal' }}>(categorize your piece)</span></label>
+                        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.5rem', marginBottom: '0.5rem' }}>
+                            {['quiet', 'healing', 'heartbreak', 'late-night', 'nostalgic', 'joyful', 'melancholic', 'dreamy', 'romantic', 'angry', 'hopeful', 'reflective'].map((m) => {
+                                const isSelected = (watchedValues.moodsInput || '').split(',').map(s => s.trim()).filter(Boolean).includes(m);
+                                return (
+                                    <button
+                                        key={m}
+                                        type="button"
+                                        onClick={() => {
+                                            const current = (watchedValues.moodsInput || '').split(',').map(s => s.trim()).filter(Boolean);
+                                            let next;
+                                            if (current.includes(m)) {
+                                                next = current.filter(x => x !== m);
+                                            } else {
+                                                next = [...current, m];
+                                            }
+                                            setValue('moodsInput', next.join(', '), { shouldValidate: true });
+                                        }}
+                                        className={`btn ${isSelected ? 'active-mood' : ''}`}
+                                        style={{
+                                            fontSize: '0.75rem',
+                                            padding: '0.35rem 0.75rem',
+                                            background: isSelected ? 'var(--accent-color)' : 'rgba(255, 255, 255, 0.03)',
+                                            color: isSelected ? '#111' : 'var(--text-main)',
+                                            border: isSelected ? '1px solid var(--accent-color)' : '1px solid rgba(201, 149, 107, 0.15)',
+                                            borderRadius: '20px',
+                                            transition: 'all 0.2s ease',
+                                            cursor: 'pointer',
+                                            fontWeight: isSelected ? '600' : 'normal'
+                                        }}
+                                    >
+                                        {m}
+                                    </button>
+                                );
+                            })}
+                        </div>
+                        {errors.moodsInput && <span className="error-msg">Please select at least one mood category.</span>}
+                    </div>
+
+                    <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+                        <label htmlFor="tagsInput">Custom Tags <span style={{ color: 'var(--text-muted)', fontWeight: 400, textTransform: 'none', letterSpacing: 'normal' }}>(optional, comma-separated)</span></label>
+                        <input
+                            type="text"
+                            id="tagsInput"
+                            {...register('tagsInput')}
+                            className="brutal-input"
+                            placeholder="solitude, memory, night"
+                        />
+                    </div>
 
                     {/* Anonymous is derived from leaving the pen name blank — no checkbox needed */}
 
@@ -320,7 +371,7 @@ export default function Submit() {
                             </label>
 
                             {/* Sentiment Gauge — centerpiece */}
-                            <SentimentGauge text={watchedContent} />
+                            <SentimentGauge text={watchedContent} onMoodDetected={setDetectedMood} />
 
                             {/* Real-time writing stats */}
                             <div className="brutal-card" style={{ padding: '1rem', marginTop: '0.5rem' }}>
@@ -354,42 +405,38 @@ export default function Submit() {
 
                             {/* AI-powered auto mood tagging */}
                             <div className="brutal-card" style={{ padding: '1rem', marginTop: '0.75rem', borderColor: 'var(--accent-color)', borderStyle: 'dashed' }}>
-                                {watchedContent.length >= 20 && (
-                                    <button
-                                        type="button"
-                                        onClick={() => {
-                                            // Map sentiment gauge mood to mood tags
-                                            const moodToTags = {
-                                                melancholy: ['melancholic', 'quiet', 'reflective'],
-                                                hope: ['hopeful', 'healing', 'dreamy'],
-                                                passion: ['angry', 'late-night'],
-                                                romance: ['romantic', 'nostalgic', 'heartbreak'],
-                                                mystery: ['dreamy', 'quiet', 'nostalgic'],
-                                                joy: ['joyful', 'healing'],
-                                            }
-                                            // Quick local sentiment check
-                                            const words = watchedContent.toLowerCase().split(/\W+/)
-                                            const kwMap = {
-                                                dark: 'melancholy', lost: 'melancholy', alone: 'melancholy', rain: 'melancholy', tears: 'melancholy',
-                                                hope: 'hope', light: 'hope', dawn: 'hope', warm: 'hope', sun: 'hope', dream: 'hope',
-                                                angry: 'passion', fire: 'passion', burn: 'passion', rage: 'passion',
-                                                love: 'romance', kiss: 'romance', heart: 'romance', desire: 'romance',
-                                                void: 'mystery', night: 'mystery', silence: 'mystery', star: 'mystery',
-                                                joy: 'joy', laugh: 'joy', bright: 'joy', free: 'joy',
-                                            }
-                                            const counts = {}
-                                            for (const w of words) { if (kwMap[w]) counts[kwMap[w]] = (counts[kwMap[w]] || 0) + 1 }
-                                            const topMood = Object.entries(counts).sort((a, b) => b[1] - a[1])[0]?.[0] || 'hope'
-                                            const suggested = moodToTags[topMood] || ['reflective']
-                                            const current = (watchedValues.moodsInput || '').split(',').map(s => s.trim()).filter(Boolean)
-                                            const merged = [...new Set([...current, ...suggested])].join(', ')
-                                            setValue('moodsInput', merged)
-                                        }}
-                                        className="btn"
-                                        style={{ width: '100%', fontSize: '0.75rem', padding: '0.5rem', background: 'rgba(201, 149, 107, 0.1)', border: '1px solid var(--accent-color)' }}
-                                    >
-                                        ✨ Auto-suggest mood tags from my writing
-                                    </button>
+                                {watchedContent.length >= 20 ? (
+                                    <div>
+                                        <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.5rem', textAlign: 'center' }}>
+                                            Detected Mood: <strong style={{ color: 'var(--accent-color)', textTransform: 'capitalize' }}>{detectedMood}</strong>
+                                        </div>
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                const moodToTags = {
+                                                    melancholy: ['melancholic', 'quiet', 'reflective'],
+                                                    hope: ['hopeful', 'healing', 'dreamy'],
+                                                    passion: ['angry', 'late-night'],
+                                                    romance: ['romantic', 'nostalgic', 'heartbreak'],
+                                                    mystery: ['dreamy', 'quiet', 'nostalgic'],
+                                                    joy: ['joyful', 'healing'],
+                                                }
+                                                const topMood = detectedMood && detectedMood !== 'neutral' ? detectedMood : 'hope'
+                                                const suggested = moodToTags[topMood] || ['reflective']
+                                                const current = (watchedValues.moodsInput || '').split(',').map(s => s.trim()).filter(Boolean)
+                                                const merged = [...new Set([...current, ...suggested])].join(', ')
+                                                setValue('moodsInput', merged, { shouldValidate: true })
+                                            }}
+                                            className="btn"
+                                            style={{ width: '100%', fontSize: '0.75rem', padding: '0.5rem', background: 'rgba(201, 149, 107, 0.1)', border: '1px solid var(--accent-color)' }}
+                                        >
+                                            ✨ Apply AI Suggested Moods
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textAlign: 'center' }}>
+                                        Write at least 20 characters to enable AI categorization
+                                    </div>
                                 )}
                             </div>
                         </div>
@@ -432,7 +479,7 @@ export default function Submit() {
                                 <div className="zen-counter">
                                     {watchedContent.length} / 5000
                                 </div>
-                                <SentimentGauge text={watchedContent} />
+                                <SentimentGauge text={watchedContent} onMoodDetected={setDetectedMood} />
                             </div>
                         </motion.div>
                     )}
